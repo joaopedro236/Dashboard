@@ -2,14 +2,14 @@ import './StylesGlobals/Reset.css'
 import './StylesGlobals/Root.css'
 import './StylesGlobals/Assets.css'
 import './StylesGlobals/Media.css'
-
-function App() {
+import Navbar from './Components/NavbarComponent/Navbar'
+export default function App() {
 
   return (
     <>
-     
+     <Navbar />
     </>
   )
 }
 
-export default App
+
