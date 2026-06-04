@@ -1,4 +1,9 @@
 body {
     font-family: sans-serif;
     background-color: var(--background-body);
+    height: 220vh;
+    color: white;
+}
+button {
+    cursor: pointer;
 }

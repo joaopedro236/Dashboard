@@ -1,6 +1,10 @@
 :root {
-    --background-body:#F8F8F8;
+    --background-body:#151519;
     --white:white;
     --black:black;
+    --index-navbar:20;
+    --text-grey:#929292;
+    --index-menu:25;
+    --border:rgba(249, 249, 249, 0.135);
     --gradient-primary:linear-gradient(#1F784F, #175338);
 }
