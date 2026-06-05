@@ -9,13 +9,13 @@ function Card(props) {
                 <h1>{props.Value}</h1>
                 <hr />
                 <p className={`statusCard ${props.statusCard?.includes('+') ? 'Active' : ''}`}>{props.statusCard}</p>
-            
+
             </div>
         </>
     )
 }
 export default function () {
-    
+
     const ApiUrl = import.meta.env.VITE_API_URL;
     const [Values, setValues] = useState({ CPUValue: 0, CpuStatus: '', CPUAverageValue: 0, CpuAverageStatus: '', RAMValue: 0, RamStatus: '', RAMAverageValue: 0, RamAverageStatus: '', DISKValue: 0, DISKStatus: '', DISKAverageValue: 0, DISKAverageStatus: '' })
     useEffect(() => {
@@ -39,7 +39,7 @@ export default function () {
         <>
             <section className="CardsMainSection">
                 <header>
-                    <h1 className='title___CardsMain'>Dashboard</h1>
+                    <h1 translate='no' className='title___CardsMain'>Dashboard</h1>
                     <div className="icons">
                         <img src="https://img.icons8.com/?size=100&id=364&format=png&color=ffffff" alt="Icon Config" className='iconConfig icon' />
                         <img src="https://img.icons8.com/?size=100&id=82779&format=png&color=ffffff" alt="Icon bell" className='iconBell icon' />
@@ -48,8 +48,8 @@ export default function () {
                 <div className="cards">
                     <Card titleCard='CPU Value' Value={Values.CPUValue} statusCard={Values.CpuStatus} />
                     <Card titleCard='CPU Average' Value={Values.CPUAverageValue} statusCard={Values.CpuAverageStatus} />
-                    <Card titleCard='Ram Value' Value={Values.RAMValue} statusCard={Values.RamStatus} />
-                    <Card titleCard='Ram Average ' Value={Values.RAMAverageValue} statusCard={Values.RamAverageStatus} />
+                    <Card titleCard='RAM Value' Value={Values.RAMValue} statusCard={Values.RamStatus} />
+                    <Card titleCard='RAM Average ' Value={Values.RAMAverageValue} statusCard={Values.RamAverageStatus} />
                 </div>
             </section>
         </>

@@ -3,6 +3,7 @@ import './StylesGlobals/Assets.css'
 import './StylesGlobals/Root.css'
 import Navbar from './Components/NavbarComponent/Navbar'
 import CardsMain from './Components/CardsMainComponent/CardsMain'
+import Tables from './Components/Tables/Tables'
 import './StylesGlobals/Media.css'
 export default function App() {
 
@@ -11,6 +12,7 @@ export default function App() {
       <Navbar />
       <main>
         <CardsMain />
+        <Tables/>
       </main>
     </>
   )

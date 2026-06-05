@@ -4,7 +4,6 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    height: 200vh;
 }
 .CardsMainSection header {
     display: flex;
@@ -31,7 +30,6 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    padding: 5px;
     width: 100%;
 }
 .card {
