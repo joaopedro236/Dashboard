@@ -40,15 +40,18 @@ export default function Tables() {
                         <LineChart data={value?.network?.download?.history || []}>
                             <CartesianGrid stroke='var(--grey)' strokeDasharray='5 5' vertical={false} />
                             <XAxis dataKey='index' fontSize={13} />
-                            <YAxis dataKey='value' fontSize={13} width={10} />
+                            <YAxis fontSize={12} width={35} domain={[0, 'auto']}
+                                allowDecimals={true} />
                             <Tooltip
                                 contentStyle={{
-                                    backgroundColor: "#000",
+                                    backgroundColor: "#1f1f1f55",
+                                    backdropFilter: 'blur(4px)',
                                     color: "#fff",
                                     textAlign: "center",
                                     border: "none",
                                     borderRadius: "6px"
                                 }}
+
                                 labelStyle={{ display: "none" }}
                             />
                             <Line type={'monotone'} dataKey='value' stroke='var(--table-color)' isAnimationActive={true}

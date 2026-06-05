@@ -33,13 +33,15 @@ ping_history = deque(maxlen=HISTORY_SIZE)
 last_net = psutil.net_io_counters()
 last_time = time.time()
 
+psutil.cpu_percent(interval=None)
+
 
 def format_value(value: float) -> float:
     return round(value, 2)
 
 
 def format_network_value(value: float) -> float:
-    return round(min(value, 99.99), 2)
+    return round(value, 2)
 
 
 def normalize(value: float) -> float:
@@ -56,11 +58,22 @@ def get_change_status(change: float) -> str:
 
 def format_change(value: float) -> str:
     value = round(value, 2)
+
     if value > 0:
         return f"+{value}"
+
     if value < 0:
         return str(value)
+
     return "0"
+
+
+def get_average(history):
+    return sum(history) / len(history) if history else 0
+
+
+def get_change(history):
+    return history[-1] - history[-2] if len(history) > 1 else 0
 
 
 def get_network_speed():
@@ -71,35 +84,45 @@ def get_network_speed():
 
     elapsed = current_time - last_time
 
-    if elapsed < 0.1:
+    if elapsed <= 0:
         return 0, 0
 
     download_bytes = current_net.bytes_recv - last_net.bytes_recv
     upload_bytes = current_net.bytes_sent - last_net.bytes_sent
 
-    download_kb = (download_bytes / 1024) / elapsed
-    upload_kb = (upload_bytes / 1024) / elapsed
+    download_mbps = (download_bytes * 8) / (1024 * 1024) / elapsed
+    upload_mbps = (upload_bytes * 8) / (1024 * 1024) / elapsed
 
     last_net = current_net
     last_time = current_time
 
-    return round(download_kb, 2), round(upload_kb, 2)
+    return (
+        format_network_value(download_mbps),
+        format_network_value(upload_mbps),
+    )
 
 
 def get_ping():
     try:
-        start = time.time()
-        sock = socket.create_connection(("8.8.8.8", 53), timeout=2)
-        ping = (time.time() - start) * 1000
-        sock.close()
+        start = time.perf_counter()
+
+        with socket.create_connection(("8.8.8.8", 53), timeout=2):
+            pass
+
+        ping = (time.perf_counter() - start) * 1000
+
         return round(ping, 2)
+
     except Exception:
         return 0
 
 
 def chart_history(history):
     return [
-        {"index": i, "value": format_network_value(value)}
+        {
+            "index": i,
+            "value": round(value, 2)
+        }
         for i, value in enumerate(history)
     ]
 
@@ -117,25 +140,25 @@ def get_metrics():
     ram_history.append(ram)
     disk_history.append(disk)
 
-    download_history.append(format_network_value(download))
-    upload_history.append(format_network_value(upload))
-    ping_history.append(format_network_value(ping))
+    download_history.append(download)
+    upload_history.append(upload)
+    ping_history.append(ping)
 
-    cpu_avg = sum(cpu_history) / len(cpu_history)
-    ram_avg = sum(ram_history) / len(ram_history)
-    disk_avg = sum(disk_history) / len(disk_history)
+    cpu_avg = get_average(cpu_history)
+    ram_avg = get_average(ram_history)
+    disk_avg = get_average(disk_history)
 
-    download_avg = sum(download_history) / len(download_history)
-    upload_avg = sum(upload_history) / len(upload_history)
-    ping_avg = sum(ping_history) / len(ping_history)
+    download_avg = get_average(download_history)
+    upload_avg = get_average(upload_history)
+    ping_avg = get_average(ping_history)
 
-    cpu_change = cpu_history[-1] - cpu_history[-2] if len(cpu_history) > 1 else 0
-    ram_change = ram_history[-1] - ram_history[-2] if len(ram_history) > 1 else 0
-    disk_change = disk_history[-1] - disk_history[-2] if len(disk_history) > 1 else 0
+    cpu_change = get_change(cpu_history)
+    ram_change = get_change(ram_history)
+    disk_change = get_change(disk_history)
 
-    download_change = download_history[-1] - download_history[-2] if len(download_history) > 1 else 0
-    upload_change = upload_history[-1] - upload_history[-2] if len(upload_history) > 1 else 0
-    ping_change = ping_history[-1] - ping_history[-2] if len(ping_history) > 1 else 0
+    download_change = get_change(download_history)
+    upload_change = get_change(upload_history)
+    ping_change = get_change(ping_history)
 
     return {
         "cpu": {
@@ -166,7 +189,7 @@ def get_metrics():
                 "change": format_change(download_change),
                 "status": get_change_status(download_change),
                 "history": chart_history(download_history),
-                "unit": "KB/s"
+                "unit": "Mbps"
             },
             "upload": {
                 "current": format_network_value(upload),
@@ -174,7 +197,7 @@ def get_metrics():
                 "change": format_change(upload_change),
                 "status": get_change_status(upload_change),
                 "history": chart_history(upload_history),
-                "unit": "KB/s"
+                "unit": "Mbps"
             },
             "ping": {
                 "current": format_network_value(ping),
