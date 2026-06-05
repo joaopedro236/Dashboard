@@ -2,10 +2,23 @@ from fastapi import FastAPI
 import psutil
 from collections import deque
 import time
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# Stores last N samples for average calculation
+origins = [
+    "http://localhost:3000",
+    "http://localhost:5173",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 HISTORY_SIZE = 20
 
 cpu_history = deque(maxlen=HISTORY_SIZE)
@@ -17,20 +30,35 @@ def format_value(value: float) -> float:
     return round(value, 2)
 
 
-def get_status(value: float, threshold: float = 70.0) -> str:
-    return "high" if value >= threshold else "low"
+def normalize(value: float) -> float:
+    return value * 100 if value <= 1 else value
 
 
 def get_disk_usage():
-    disk = psutil.disk_usage("/")
-    return disk.percent
+    return psutil.disk_usage("/").percent
+
+
+def get_change_status(change: float) -> str:
+    return "high" if change > 0 else "low"
+
+
+def format_change(value: float) -> str:
+    value = round(value, 2)
+
+    if value > 0:
+        return f"+{value}"
+
+    if value < 0:
+        return str(value)
+
+    return "0"
 
 
 @app.get("/metrics")
 def get_metrics():
-    cpu = psutil.cpu_percent(interval=1)
-    ram = psutil.virtual_memory().percent
-    disk = get_disk_usage()
+    cpu = normalize(psutil.cpu_percent(interval=1))
+    ram = normalize(psutil.virtual_memory().percent)
+    disk = normalize(get_disk_usage())
 
     cpu_history.append(cpu)
     ram_history.append(ram)
@@ -40,23 +68,33 @@ def get_metrics():
     ram_avg = sum(ram_history) / len(ram_history)
     disk_avg = sum(disk_history) / len(disk_history)
 
-    response = {
+    cpu_change = cpu_history[-1] - cpu_history[-2] if len(cpu_history) > 1 else 0
+    ram_change = ram_history[-1] - ram_history[-2] if len(ram_history) > 1 else 0
+    disk_change = disk_history[-1] - disk_history[-2] if len(disk_history) > 1 else 0
+
+    return {
         "cpu": {
             "current": format_value(cpu),
             "average": format_value(cpu_avg),
-            "status": get_status(cpu)
+            "change": format_change(cpu_change),
+            "status": get_change_status(cpu_change)
         },
         "ram": {
             "current": format_value(ram),
             "average": format_value(ram_avg),
-            "status": get_status(ram)
+            "change": format_change(ram_change),
+            "status": get_change_status(ram_change)
         },
         "disk": {
             "current": format_value(disk),
             "average": format_value(disk_avg),
-            "status": get_status(disk, threshold=80.0)
+            "change": format_change(disk_change),
+            "status": get_change_status(disk_change)
+        },
+        "chart": {
+            "cpu_average": format_value(cpu_avg),
+            "ram_average": format_value(ram_avg),
+            "disk_average": format_value(disk_avg)
         },
         "timestamp": time.time()
     }
-
-    return response

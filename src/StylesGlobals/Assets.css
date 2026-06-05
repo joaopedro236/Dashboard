@@ -4,6 +4,15 @@ body {
     height: 220vh;
     color: white;
 }
+main {
+    padding-top: 15px;
+}
 button {
     cursor: pointer;
+}
+
+hr {
+    margin: 5px 0;
+    width: 100%;
+    border: 1px solid var(--border);
 }

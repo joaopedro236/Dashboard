@@ -18,7 +18,7 @@ export default function Navbar() {
     return (
         <>
         <section className={`navbarSection  ${NavbarActive ? 'Active' : ''}`}>
-            <h1 className='logo'>Dashboard</h1>
+            <h1 className='logo'>DashHard</h1>
             <img src="https://img.icons8.com/?size=100&id=36389&format=png&color=ffffff" alt="Icon Menu" className={`iconMenu `} onClick={()=> setMenuActive(prev => !prev)}/>
         </section>
         <section className={`menu  ${MenuActive ? 'Active' : ''}`}>

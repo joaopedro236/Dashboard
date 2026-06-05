@@ -1,10 +1,13 @@
 :root {
-    --background-body:#151519;
+    --background-body:#0e0e0f;
     --white:white;
     --black:black;
     --index-navbar:20;
     --text-grey:#929292;
+    --status-low:#199919;
+    --status-high:#991919;
     --index-menu:25;
-    --border:rgba(249, 249, 249, 0.135);
+    --border:rgba(249, 249, 249, 0.063);
+    --background-card: rgba(19, 19, 21, 0.341);
     --gradient-primary:linear-gradient(#1F784F, #175338);
 }
