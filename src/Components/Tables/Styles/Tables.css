@@ -5,7 +5,7 @@
     padding: 20px;
     align-items: center;
     justify-content: center;
-}
+}   
 .table {
     width: 100%;
     padding: 20px;
@@ -13,10 +13,30 @@
     border: 1px solid var(--border);
     
     max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
     background-color: var(--background-card);    
+}
+.table header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
 }
 .recharts-wrapper *:focus,
 .recharts-surface *:focus {
   outline: none;
   box-shadow: none;
+}
+.titleTable {
+    font-size: 19px;
+}
+.btnTable {
+    border-radius: 6px;
+    box-shadow: 0px 0px 10px #0000002e;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--white);
+    padding: 6px 10px;
 }

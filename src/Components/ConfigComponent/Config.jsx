@@ -5,7 +5,7 @@ function Btn(props) {
         <>
             <div className="itemConfig">
                 <h1>{props.title}</h1>
-                <button className={`btn ${props.isActive ? 'Active' : ''}`} onClick={props.onClick}>
+                <button className={`btnActiveConfig ${props.isActive ? 'Active' : ''}`} onClick={props.onClick}>
                 </button>
             </div>
         </>

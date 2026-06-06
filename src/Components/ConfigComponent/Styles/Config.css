@@ -96,7 +96,7 @@
     max-width: 210px;
 }
 
-.btn {
+.btnActiveConfig {
     width: 45px;
     height: fit-content;
     position: relative;
@@ -106,10 +106,10 @@
     border: none;
     border-radius: 10px;
 }
-.btn.Active {
+.btnActiveConfig.Active {
     background-color: var(--background-btn-active);
 }
-.btn::before {
+.btnActiveConfig::before {
     content: '';
     width: 22px;
     height: 22px;
@@ -122,7 +122,7 @@
     border-radius: 50%;
 }
 
-.btn.Active::before {
+.btnActiveConfig.Active::before {
     right: 0;
     background-color: white;
     transform: translateX(0);

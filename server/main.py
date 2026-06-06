@@ -183,7 +183,7 @@ def get_metrics():
             "history": chart_history(disk_history)
         },
         "network": {
-            "download": {
+            "Download": {
                 "current": format_network_value(download),
                 "average": format_network_value(download_avg),
                 "change": format_change(download_change),
@@ -191,7 +191,7 @@ def get_metrics():
                 "history": chart_history(download_history),
                 "unit": "Mbps"
             },
-            "upload": {
+            "Upload": {
                 "current": format_network_value(upload),
                 "average": format_network_value(upload_avg),
                 "change": format_change(upload_change),
