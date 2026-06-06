@@ -51,10 +51,10 @@ export default function Config() {
                 </Btn>
                 <Btn title='Remove Config Button' isActive={btn.btnRemoveBtnConfig} onClick={() => {
                     setBtn({ ...btn, btnRemoveBtnConfig: btn.btnRemoveBtnConfig ? false : true })
-                    const BtnConfig = document.querySelector('.btnConfig')
                     if (!btn.btnRemoveBtnConfig) {
                         BtnConfig.style.display = 'none'
                     } else {
+                        const BtnConfig = document.querySelector('.btnConfig')
                         BtnConfig.style.display = 'flex'
                     }
                 }}>

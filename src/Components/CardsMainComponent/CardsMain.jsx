@@ -14,7 +14,7 @@ function Card(props) {
         </>
     )
 }
-export default function () {
+export default function CardsMain() {
 
     const ApiUrl = import.meta.env.VITE_API_URL;
     const [Values, setValues] = useState({ CPUValue: 0, CpuStatus: '', CPUAverageValue: 0, CpuAverageStatus: '', RAMValue: 0, RamStatus: '', RAMAverageValue: 0, RamAverageStatus: '', DISKValue: 0, DISKStatus: '', DISKAverageValue: 0, DISKAverageStatus: '' })
