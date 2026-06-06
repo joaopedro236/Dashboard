@@ -7,9 +7,13 @@
     --status-low:#199919;
     --status-high:#991919;
     --index-menu:25;
+    --index-config:30;
     --grey:#47474797;
     --border:rgba(249, 249, 249, 0.063);
     --background-card: rgba(19, 19, 21, 0.341);
+    --background-btn-config:#f1f1f1;
     --table-color:rgb(180, 75, 255);
+    --background-btn:#3c3c40;
+    --background-btn-active: #2e2e31;
 
 }

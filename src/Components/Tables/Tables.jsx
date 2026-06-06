@@ -39,9 +39,10 @@ export default function Tables() {
                     <ResponsiveContainer width="100%" height={300}>
                         <LineChart data={value?.network?.download?.history || []}>
                             <CartesianGrid stroke='var(--grey)' strokeDasharray='5 5' vertical={false} />
-                            <XAxis dataKey='index' fontSize={13} />
+                            <XAxis dataKey='index' fontSize={12} />
                             <YAxis fontSize={12} width={35} domain={[0, 'auto']}
-                                allowDecimals={true} />
+                                allowDecimals={true}
+                                tickFormatter={(value) => String(value).slice(0, 4)} />
                             <Tooltip
                                 contentStyle={{
                                     backgroundColor: "#1f1f1f55",
@@ -54,9 +55,10 @@ export default function Tables() {
 
                                 labelStyle={{ display: "none" }}
                             />
-                            <Line type={'monotone'} dataKey='value' stroke='var(--table-color)' isAnimationActive={true}
+                            <Line type={'monotoneX'} dataKey='value' stroke='var(--table-color)' isAnimationActive={true}
                                 animationDuration={1500}
-                                animationEasing="ease-out" />
+                                animationEasing="ease-out"
+                                />
                         </LineChart>
                     </ResponsiveContainer>
                 </div>

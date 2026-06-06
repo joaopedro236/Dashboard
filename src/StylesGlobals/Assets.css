@@ -1,7 +1,7 @@
 body {
     font-family: sans-serif;
     background-color: var(--background-body);
-
+    overflow-x: hidden;
     color: white;
 }
 main {

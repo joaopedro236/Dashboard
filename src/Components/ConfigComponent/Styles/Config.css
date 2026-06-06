@@ -1,0 +1,129 @@
+.btnConfig {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    border: none;
+    background: var(--background-btn-config);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    z-index: 2;
+    padding: 9px;
+    display: flex;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.154);
+    align-items: center;
+    justify-content: center;
+}
+
+.iconConfig {
+    width: 100%;
+
+}
+
+.btnConfig.Active {
+    animation: btnConfigAnimation 0.4s ease forwards;
+}
+
+@keyframes btnConfigAnimation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(180deg);
+    }
+}
+
+.configSection {
+    position: fixed;
+    top: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    transform: translateX(100px);
+    right: 0;
+    width: 100%;
+    max-width: 340px;
+    border-left: 1px solid var(--border);
+    z-index: var(--index-config);
+    padding: 20px;
+    height: 100vh;
+    background-color: var(--background-body);
+}
+
+.configSection.Active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(0);
+}
+
+.configSection header {
+    width: 100%;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 17px;
+    display: flex;
+    align-items: center;
+    height: min-content;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+.configSection header h1 {
+    font-size: 23px;
+}
+
+.closeConfig {
+    font-size: 14px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: var(--white);
+}
+
+.itemConfig {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.itemConfig h1 {
+    font-size: 15px;
+    max-width: 210px;
+}
+
+.btn {
+    width: 45px;
+    height: fit-content;
+    position: relative;
+    height: 20px;
+    transition: background-color 0.2s ease-in-out;
+    background-color: var(--background-btn);
+    border: none;
+    border-radius: 10px;
+}
+.btn.Active {
+    background-color: var(--background-btn-active);
+}
+.btn::before {
+    content: '';
+    width: 22px;
+    height: 22px;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    background-color: lightgrey;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateX(-100%);
+    border-radius: 50%;
+}
+
+.btn.Active::before {
+    right: 0;
+    background-color: white;
+    transform: translateX(0);
+}

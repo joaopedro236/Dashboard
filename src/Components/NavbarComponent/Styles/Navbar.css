@@ -24,7 +24,15 @@
     pointer-events: all;
     transform: translateY(0);
 }
-
+.closeMenu {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 20px;
+    font-size: 16px;
+    color: var(--white);
+    left: 20px;
+}
 .logo {
     color: var(--white);
     font-size: 20px;

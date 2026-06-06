@@ -22,6 +22,7 @@ export default function Navbar() {
             <img src="https://img.icons8.com/?size=100&id=36389&format=png&color=ffffff" alt="Icon Menu" className={`iconMenu `} onClick={()=> setMenuActive(prev => !prev)}/>
         </section>
         <section className={`menu  ${MenuActive ? 'Active' : ''}`}>
+            <button className='closeMenu' onClick={()=> setMenuActive(false)}>X</button>
             <ul>
                 <li className={`${LiActive === 0 ? 'Active' : ''}`} onClick={()=> setLiActive(0)}>
                     <img src="https://img.icons8.com/?size=100&id=Yj5svDsC4jQA&format=png&color=973FFF" alt="Icon Dashboard" className={`${LiActive === 0 ? 'Active' : ''}`}/>
