@@ -6,7 +6,7 @@ import {
     YAxis,
     CartesianGrid,
     Tooltip,
-    
+
     Area,
     ResponsiveContainer,
     ReferenceLine,
@@ -67,7 +67,7 @@ export default function Tables() {
                                     border: "none",
                                     borderRadius: "6px"
                                 }}
-
+                                formatter={(value) => [`${value} Mbs`]}
                                 labelStyle={{ display: "none" }}
                             />
                             <Line type={'monotoneX'} dataKey='value' stroke='var(--table-color)' isAnimationActive={true}
@@ -94,7 +94,7 @@ export default function Tables() {
                         >
                             <XAxis dataKey='index' fontSize={12} />
                             <YAxis width='auto' fontSize={12} width={35} domain={[0, 'auto']} allowDecimals={true} tickFormatter={(value) => String(value).slice(0, 4)} />
-                            <CartesianGrid strokeDasharray='3 3' />
+                            <CartesianGrid strokeDasharray='3 3' stroke='var(--grey)' />
                             <Tooltip
                                 contentStyle={{
                                     backgroundColor: "#13131376",
@@ -104,12 +104,12 @@ export default function Tables() {
                                     border: "none",
                                     borderRadius: "6px"
                                 }}
-
+                                formatter={(value) => [`${value} Ms`]}
                                 labelStyle={{ display: "none" }}
                             />
-                            <ReferenceLine x='value' stroke='var(--table-color)'/>
-                            <ReferenceLine y={4000}  stroke='var(--table-color)' strokeDasharray='3 3'/>
-                            <Area type="monotone" dataKey='value'stroke='var(--table-color)' fill='var(--table-fill)' />                       
+                            <ReferenceLine x='value' stroke='var(--table-color)' />
+                            <ReferenceLine y={4000} stroke='var(--table-color)' strokeDasharray='3 3' />
+                            <Area type="monotone" dataKey='value' stroke='var(--table-color)' fill='var(--table-fill)' />
                         </AreaChart>
                     </ResponsiveContainer>
                 </div>

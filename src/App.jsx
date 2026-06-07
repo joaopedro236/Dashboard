@@ -10,6 +10,7 @@ import Config from './Components/ConfigComponent/Config'
 import './StylesGlobals/Media.css'
 export default function App() {
   const [ui, setUi] = useState({
+
     hideNavbar: false,
     hideSideBar: false,
     isOpen: false

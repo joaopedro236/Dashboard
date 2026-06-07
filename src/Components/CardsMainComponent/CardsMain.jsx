@@ -18,10 +18,12 @@ export default function CardsMain({ui,setUi, isOpen }) {
     const toggleMenuConfig = () => {
         setUi(prev => ({
             ...prev,
+
             isOpen: !prev.isOpen
-        }));    
+        }));
     };
     const ApiUrl = import.meta.env.VITE_API_URL;
+    const [iconsActive,setIconsActive] = useState({iconConfig:false, iconBell:false})
     const [Values, setValues] = useState({ CPUValue: 0, CpuStatus: '', CPUAverageValue: 0, CpuAverageStatus: '', RAMValue: 0, RamStatus: '', RAMAverageValue: 0, RamAverageStatus: '', DISKValue: 0, DISKStatus: '', DISKAverageValue: 0, DISKAverageStatus: '' })
     useEffect(() => {
         const Fetch = async () => {
@@ -46,8 +48,13 @@ export default function CardsMain({ui,setUi, isOpen }) {
                 <header>
                     <h1 translate='no' className='title___CardsMain'>Dashboard</h1>
                     <div className="icons">
-                        <img src="https://img.icons8.com/?size=100&id=364&format=png&color=ffffff" alt="Icon Config" className={`iconConfig ${isOpen ? 'Active' : ''} icon`} onClick={toggleMenuConfig}/>
-                        <img src="https://img.icons8.com/?size=100&id=82779&format=png&color=ffffff" alt="Icon bell" className='iconBell icon' />
+                        <img src="https://img.icons8.com/?size=100&id=364&format=png&color=ffffff" alt="Icon Config" className={`iconConfig ${iconsActive.iconConfig ? 'Active' : ''} icon`} onClick={()=>{
+                            toggleMenuConfig()
+                            setIconsActive(prev => ({...prev, iconConfig: !prev.iconConfig}))
+                        }}/>
+                        <img src="https://img.icons8.com/?size=100&id=82779&format=png&color=ffffff" alt="Icon bell" className={`iconBell icon ${iconsActive.iconBell ? 'Active' : ''}`} onClick={() => {
+                            setIconsActive(prev => ({...prev, iconBell: !prev.iconBell}))
+                        }}/>
                     </div>
                 </header>
                 <div className="cards">

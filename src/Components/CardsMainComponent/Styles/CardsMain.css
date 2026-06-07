@@ -37,6 +37,7 @@
     background-color: var(--background-card);
     padding: 20px;
     border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
     backdrop-filter: blur(10px);
     border: 1px solid var(--border);
     display: flex;
@@ -84,5 +85,10 @@
     .cards {
         display: flex; justify-content: space-between; 
         align-items: center;
+    }
+}
+@media (hover:hover) {
+    .card:hover {
+        transform: translateY(-7px);
     }
 }

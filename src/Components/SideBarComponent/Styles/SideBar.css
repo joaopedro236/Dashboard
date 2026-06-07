@@ -8,7 +8,7 @@
     overflow-y: auto;
     flex-direction: column;
     padding: 20px;
-    width: 240px;
+    width: 230px;
     transition: opacity 0.3s ease-in-out, transform 0.4s ease-in-out;
     z-index: var(--index-menu);
     background-color: var(--background-body);
@@ -62,17 +62,22 @@
 .btn {
     border-radius: 10px;
     width: 100%;
-    color: var(--white);
     background-color: transparent;
     border: 1px solid var(--border-type-two);
     padding: 10px;
-    transition: color 0.3s ease;
     z-index: 2;
     position: relative;
 }
 
-.btn.Active {
+.btn a {
+    color: var(--white);
+    transition: color 0.3s ease;
+    text-decoration: none;
+}
+.btn a.Active {
     color: var(--black);
+}
+.btn.Active {
     border: 1px solid var(--black);
 }
 .btn.Active::before{
