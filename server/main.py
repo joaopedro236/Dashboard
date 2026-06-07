@@ -36,14 +36,6 @@ last_time = time.time()
 psutil.cpu_percent(interval=None)
 
 
-def format_value(value: float) -> float:
-    return round(value, 2)
-
-
-def format_network_value(value: float) -> float:
-    return round(value, 2)
-
-
 def normalize(value: float) -> float:
     return value * 100 if value <= 1 else value
 
@@ -76,6 +68,18 @@ def get_change(history):
     return history[-1] - history[-2] if len(history) > 1 else 0
 
 
+def percent(value):
+    return f"{round(value, 2)}%"
+
+
+def mbps(value):
+    return f"{round(value, 2)} Mbps"
+
+
+def ms(value):
+    return f"{round(value, 2)} ms"
+
+
 def get_network_speed():
     global last_net, last_time
 
@@ -96,10 +100,7 @@ def get_network_speed():
     last_net = current_net
     last_time = current_time
 
-    return (
-        format_network_value(download_mbps),
-        format_network_value(upload_mbps),
-    )
+    return round(download_mbps, 2), round(upload_mbps, 2)
 
 
 def get_ping():
@@ -125,6 +126,11 @@ def chart_history(history):
         }
         for i, value in enumerate(history)
     ]
+
+
+@app.get("/")
+def root():
+    return {"status": "online"}
 
 
 @app.get("/metrics")
@@ -162,59 +168,104 @@ def get_metrics():
 
     return {
         "cpu": {
-            "current": format_value(cpu),
-            "average": format_value(cpu_avg),
-            "change": format_change(cpu_change),
+            "current": percent(cpu),
+            "average": percent(cpu_avg),
+            "change": f"{format_change(cpu_change)}%",
             "status": get_change_status(cpu_change),
             "history": chart_history(cpu_history)
         },
         "ram": {
-            "current": format_value(ram),
-            "average": format_value(ram_avg),
-            "change": format_change(ram_change),
+            "current": percent(ram),
+            "average": percent(ram_avg),
+            "change": f"{format_change(ram_change)}%",
             "status": get_change_status(ram_change),
             "history": chart_history(ram_history)
         },
         "disk": {
-            "current": format_value(disk),
-            "average": format_value(disk_avg),
-            "change": format_change(disk_change),
+            "current": percent(disk),
+            "average": percent(disk_avg),
+            "change": f"{format_change(disk_change)}%",
             "status": get_change_status(disk_change),
             "history": chart_history(disk_history)
         },
         "network": {
             "Download": {
-                "current": format_network_value(download),
-                "average": format_network_value(download_avg),
-                "change": format_change(download_change),
+                "current": mbps(download),
+                "average": mbps(download_avg),
+                "change": f"{format_change(download_change)} Mbps",
                 "status": get_change_status(download_change),
-                "history": chart_history(download_history),
-                "unit": "Mbps"
+                "history": chart_history(download_history)
             },
             "Upload": {
-                "current": format_network_value(upload),
-                "average": format_network_value(upload_avg),
-                "change": format_change(upload_change),
+                "current": mbps(upload),
+                "average": mbps(upload_avg),
+                "change": f"{format_change(upload_change)} Mbps",
                 "status": get_change_status(upload_change),
-                "history": chart_history(upload_history),
-                "unit": "Mbps"
+                "history": chart_history(upload_history)
             },
             "ping": {
-                "current": format_network_value(ping),
-                "average": format_network_value(ping_avg),
-                "change": format_change(ping_change),
+                "current": ms(ping),
+                "average": ms(ping_avg),
+                "change": f"{format_change(ping_change)} ms",
                 "status": get_change_status(-ping_change),
-                "history": chart_history(ping_history),
-                "unit": "ms"
+                "history": chart_history(ping_history)
             }
         },
         "chart": {
-            "cpu_average": format_value(cpu_avg),
-            "ram_average": format_value(ram_avg),
-            "disk_average": format_value(disk_avg),
-            "download_average": format_network_value(download_avg),
-            "upload_average": format_network_value(upload_avg),
-            "ping_average": format_network_value(ping_avg)
+            "cpu_average": percent(cpu_avg),
+            "ram_average": percent(ram_avg),
+            "disk_average": percent(disk_avg),
+            "download_average": mbps(download_avg),
+            "upload_average": mbps(upload_avg),
+            "ping_average": ms(ping_avg)
         },
+        "timestamp": time.time()
+    }
+
+
+@app.get("/processes")
+def get_processes():
+    processes = []
+
+    for proc in psutil.process_iter([
+        "pid",
+        "name",
+        "cpu_percent",
+        "memory_info",
+        "status",
+        "username"
+    ]):
+        try:
+            memory_bytes = proc.info["memory_info"].rss
+            memory_mb = memory_bytes / (1024 * 1024)
+            memory_gb = memory_bytes / (1024 ** 3)
+
+            processes.append({
+                "pid": proc.info["pid"],
+                "name": proc.info["name"],
+                "cpu": f"{round(proc.info['cpu_percent'], 2)}%",
+                "memory": f"{memory_gb:.2f} GB",
+                "memory_mb": round(memory_mb, 2),
+                "memory_gb": round(memory_gb, 2),
+                "threads": proc.num_threads(),
+                "status": proc.info["status"],
+                "user": proc.info["username"]
+            })
+
+        except (
+            psutil.NoSuchProcess,
+            psutil.AccessDenied,
+            psutil.ZombieProcess
+        ):
+            continue
+
+    processes.sort(
+        key=lambda x: x["memory_gb"],
+        reverse=True
+    )
+
+    return {
+        "total_processes": len(processes),
+        "processes": processes,
         "timestamp": time.time()
     }
