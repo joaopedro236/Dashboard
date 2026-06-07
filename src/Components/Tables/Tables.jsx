@@ -6,7 +6,11 @@ import {
     YAxis,
     CartesianGrid,
     Tooltip,
+    
+    Area,
     ResponsiveContainer,
+    ReferenceLine,
+    AreaChart
 } from "recharts";
 import { useState, useEffect } from 'react';
 
@@ -72,6 +76,41 @@ export default function Tables() {
                                 animationEasing="ease-out"
                             />
                         </LineChart>
+                    </ResponsiveContainer>
+                </div>
+                <div className="table">
+                    <header>
+                        <h1 className="titleTable">Ping View</h1>
+                    </header>
+                    <ResponsiveContainer width='100%' height={304.5}>
+                        <AreaChart
+                            data={value?.network.ping.history || []}
+                            margin={{
+                                top: 20,
+                                right: 0,
+                                left: 0,
+                                bottom: 0,
+                            }}
+                        >
+                            <XAxis dataKey='index' fontSize={12} />
+                            <YAxis width='auto' fontSize={12} width={35} domain={[0, 'auto']} allowDecimals={true} tickFormatter={(value) => String(value).slice(0, 4)} />
+                            <CartesianGrid strokeDasharray='3 3' />
+                            <Tooltip
+                                contentStyle={{
+                                    backgroundColor: "#13131376",
+                                    backdropFilter: 'blur(4px)',
+                                    color: "#fff",
+                                    textAlign: "center",
+                                    border: "none",
+                                    borderRadius: "6px"
+                                }}
+
+                                labelStyle={{ display: "none" }}
+                            />
+                            <ReferenceLine x='value' stroke='var(--table-color)'/>
+                            <ReferenceLine y={4000}  stroke='var(--table-color)' strokeDasharray='3 3'/>
+                            <Area type="monotone" dataKey='value'stroke='var(--table-color)' fill='var(--table-fill)' />                       
+                        </AreaChart>
                     </ResponsiveContainer>
                 </div>
             </section>

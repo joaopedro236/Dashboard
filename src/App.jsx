@@ -12,16 +12,16 @@ export default function App() {
   const [ui, setUi] = useState({
     hideNavbar: false,
     hideSideBar: false,
-    openConfig: false
+    isOpen: false
   });
   return (
     <>
       <Navbar hidden={ui.hideNavbar}/>
       <SideBar  hidden={ui.hideSideBar}/>
       <main>
-        <Tables />
         <CardsMain   ui={ui} setUi={setUi} />
-        <Config  ui={ui} setUi={setUi} hidden={ui.openConfig}/>
+        <Tables />
+        <Config  ui={ui} setUi={setUi} isOpen={ui.isOpen}/>
       </main>
     </>
   )

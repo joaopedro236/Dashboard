@@ -66,9 +66,36 @@
     background-color: transparent;
     border: 1px solid var(--border-type-two);
     padding: 10px;
+    transition: color 0.3s ease;
+    z-index: 2;
+    position: relative;
 }
 
-
+.btn.Active {
+    color: var(--black);
+    border: 1px solid var(--black);
+}
+.btn.Active::before{
+    width: 0%;
+    height: 100%;
+    content: '';
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    background-color: var(--white);
+    border-radius: 10px;
+    left: 0;
+    animation: btnActiveAnimation 0.3s ease-in-out forwards;
+    display: block;
+}
+@keyframes btnActiveAnimation {
+    0% {
+        width:0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
 .removeSideBar {
     display: none ;
 }

@@ -2,9 +2,9 @@ import './Styles/SideBar.css'
 import { useState } from 'react'
 import {MenuItems} from '../../Data/MenuItem'
 export default function SideBar({ hidden }) {
-    console.log(hidden)
     const [SideBarActive, setSideBarActive] = useState(false)
     const [LiActive, setLiActive] = useState(0)
+    const [btnActive, setBtnActive] = useState(false)
     return (
         <>
         <aside className={`sideBar ${hidden ? "Hidden" : SideBarActive ? "Active" : ""}`}>
@@ -22,7 +22,7 @@ export default function SideBar({ hidden }) {
                 }
             </ul>
             <div className="btns">
-                <button className="btn ">View Github</button>
+                <button className={`btn ${btnActive ? 'Active' : ''}`} onClick={() => setBtnActive(prev => !prev)}>View Github</button>
             </div>
         </aside>
         </>

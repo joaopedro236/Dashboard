@@ -11,7 +11,7 @@ function Btn(props) {
         </>
     )
 }
-export default function Config({ ui, setUi, hidden}) {
+export default function Config({ ui, setUi, isOpen}) {
     const toggleNavbar = () => {
         setUi(prev => ({
             ...prev,
@@ -25,24 +25,24 @@ export default function Config({ ui, setUi, hidden}) {
         }))
     }
     const body = document.body
-    const mediaQuery = window.matchMedia('(max-width: 1023px)')
+    const mediaQuery = window.matchMedia('(max-width: 1024px)')
+    const [removeBtnConfig, setRemoveBtnConfig] = useState(false)
     if (ui.hideSideBar) {
         body.style.paddingLeft = '0px'
     } else {
         body.style.paddingLeft = mediaQuery.matches ? '0px' : '260px';
     }
-    const [btnActive, setbtnActive] = useState(false)
     const [btn, setBtn] = useState({ btnRemoveNavbarOrSideBar: false, btnRemoveScroll: false, btnRemoveBtnConfig: false })
-
+    
     return (
         <>
-            <button className={`btnConfig ${btnActive ? 'Active' : ' ==='}`} onClick={() => setbtnActive(true)}>
+            <button className={`btnConfig ${isOpen ? 'Active' : ''} ${removeBtnConfig ? 'Hidden' : ''}`} onClick={() => setUi(prev => ({...prev, isOpen:true}))}>
                 <img src={`https://img.icons8.com/?size=100&id=364&format=png&color=000000 `} alt="Icon Config" className='iconConfig' />
             </button>
-            <section className={`configSection ${btnActive ? 'Active' : ''}`}>
+            <section className={`configSection ${isOpen ? 'Active' : ''} `}>
                 <header>
                     <h1 className='title'>Settings</h1>
-                    <button className='closeConfig' onClick={() => setbtnActive(false)}>X</button>
+                    <button className='closeConfig' onClick={() => setUi(prev => ({...prev, isOpen:false}))}>X</button>
                 </header>
                 <Btn class='removeNavbar' title='Remove Navbar' isActive={ui.hideNavbar} onClick={toggleNavbar}>
 
@@ -64,6 +64,7 @@ export default function Config({ ui, setUi, hidden}) {
                 </Btn>
                 <Btn title='Remove Config Button' isActive={btn.btnRemoveBtnConfig} onClick={() => {
                     setBtn({ ...btn, btnRemoveBtnConfig: btn.btnRemoveBtnConfig ? false : true })
+                    setRemoveBtnConfig(prev => !prev)
                 }}>
                 </Btn>
 
@@ -71,4 +72,5 @@ export default function Config({ ui, setUi, hidden}) {
         </>
     )
 }
+
 

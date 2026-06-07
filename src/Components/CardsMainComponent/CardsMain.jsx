@@ -14,11 +14,11 @@ function Card(props) {
         </>
     )
 }
-export default function CardsMain({ hidden }) {
+export default function CardsMain({ui,setUi, isOpen }) {
     const toggleMenuConfig = () => {
         setUi(prev => ({
             ...prev,
-            openConfig: !prev.openConfig
+            isOpen: !prev.isOpen
         }));    
     };
     const ApiUrl = import.meta.env.VITE_API_URL;
@@ -46,7 +46,7 @@ export default function CardsMain({ hidden }) {
                 <header>
                     <h1 translate='no' className='title___CardsMain'>Dashboard</h1>
                     <div className="icons">
-                        <img src="https://img.icons8.com/?size=100&id=364&format=png&color=ffffff" alt="Icon Config" className='iconConfig icon' onClick={toggleMenuConfig}/>
+                        <img src="https://img.icons8.com/?size=100&id=364&format=png&color=ffffff" alt="Icon Config" className={`iconConfig ${isOpen ? 'Active' : ''} icon`} onClick={toggleMenuConfig}/>
                         <img src="https://img.icons8.com/?size=100&id=82779&format=png&color=ffffff" alt="Icon bell" className='iconBell icon' />
                     </div>
                 </header>

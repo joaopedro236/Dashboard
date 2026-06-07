@@ -5,6 +5,7 @@
     padding: 20px;
     align-items: center;
     justify-content: center;
+    gap: 30px;
 }   
 .table {
     width: 100%;
@@ -43,4 +44,10 @@
 }
 .line {
     height: 30cm;
+}
+@media (min-width:1024px) {
+    .tableSection {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

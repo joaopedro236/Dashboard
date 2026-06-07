@@ -23,7 +23,9 @@
 .btnConfig.Active {
     animation: btnConfigAnimation 0.4s ease forwards;
 }
-
+.btnConfig.Hidden {
+    display: none;
+}
 @keyframes btnConfigAnimation {
     0% {
         transform: rotate(0deg);

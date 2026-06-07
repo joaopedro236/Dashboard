@@ -32,6 +32,7 @@
     gap: 20px;
     width: 100%;
 }
+
 .card {
     background-color: var(--background-card);
     padding: 20px;
@@ -42,6 +43,22 @@
     gap: 6px;
     width: 100%;
     flex-direction: column;
+}
+
+
+@keyframes iconConfigAnimation {
+    0% {
+        transform: rotate(0deg);
+        opacity: 0.5;
+    }
+    60% {
+        transform: rotate(100deg);
+        opacity: 1;
+    }
+    100% {
+        transform: rotate(0deg);
+        opacity: 0.5;
+    }
 }
 .titleCard{
     font-size: 12px;
