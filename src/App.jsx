@@ -2,13 +2,22 @@ import './StylesGlobals/Reset.css'
 import './StylesGlobals/Assets.css'
 import './StylesGlobals/Root.css'
 import Navbar from './Components/NavbarComponent/Navbar'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import SideBar from './Components/SideBarComponent/SideBar'
 import CardsMain from './Components/CardsMainComponent/CardsMain'
 import Tables from './Components/Tables/Tables'
 import Config from './Components/ConfigComponent/Config'
 import './StylesGlobals/Media.css'
 export default function App() {
+  useEffect(() => {
+    const handleResize = () => {
+      window.location.reload()
+    }
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  },[])
   const [ui, setUi] = useState({
 
     hideNavbar: false,
