@@ -1,0 +1,85 @@
+.sideBar {
+    display: none;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    flex-direction: column;
+    padding: 20px;
+    width: 240px;
+    transition: opacity 0.3s ease-in-out, transform 0.4s ease-in-out;
+    z-index: var(--index-menu);
+    background-color: var(--background-body);
+}
+.sideBar.Active {
+    filter: blur(0);
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+}
+.Hidden {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+.sideBar ul {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+}
+.sideBar li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    width: fit-content;
+}
+.sideBar li img {
+    width: 23px;
+    filter: saturate(0);
+    transition: filter 0.2s ease-in-out;
+}
+.sideBar li img.Active {
+    filter: saturate(1);
+}
+.sideBar li p {
+    font-size: 14px;
+    transition: color 0.2s ease-in-out;
+    color: var(--text-grey);
+}
+.sideBar li p.Active {
+    color: white
+}
+.btns {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    height: min-content;
+}
+.btn {
+    border-radius: 10px;
+    width: 100%;
+    color: var(--white);
+    background-color: transparent;
+    border: 1px solid var(--border-type-two);
+    padding: 10px;
+}
+
+
+.removeSideBar {
+    display: none ;
+}
+@media (min-width:1024px) {
+    .sideBar,
+    .removeSideBar {
+        display: flex;
+    }
+}
+@media (hover:hover) {
+    .sideBar li p:hover {
+        color: white;
+    }
+}

@@ -68,6 +68,7 @@ export default function Tables() {
                             />
                             <Line type={'monotoneX'} dataKey='value' stroke='var(--table-color)' isAnimationActive={true}
                                 animationDuration={1500}
+                                className='line'
                                 animationEasing="ease-out"
                             />
                         </LineChart>

@@ -106,9 +106,11 @@
     border: none;
     border-radius: 10px;
 }
+
 .btnActiveConfig.Active {
     background-color: var(--background-btn-active);
 }
+
 .btnActiveConfig::before {
     content: '';
     width: 22px;
@@ -126,4 +128,18 @@
     right: 0;
     background-color: white;
     transform: translateX(0);
+}
+
+.removeSideBar {
+    display: none;
+}
+
+@media (min-width:1024px) {
+    .removeNavbar {
+        display: none;
+    }
+
+    .removeSideBar {
+        display: flex;
+    }
 }

@@ -18,5 +18,10 @@ export const MenuItems = [
         id:4,
         title:'View Files',
         icon: 'https://img.icons8.com/?size=100&id=112702&format=png&color=973FFF'
+    },
+    {
+        id:5,
+        title:'Get in touch',
+        icon:'https://img.icons8.com/?size=100&id=16712&format=png&color=973FFF' 
     }
 ]

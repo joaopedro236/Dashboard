@@ -6,7 +6,7 @@ function Card(props) {
         <>
             <div className="card">
                 <p className='titleCard'>{props.titleCard}</p>
-                <h1>{props.Value}</h1>
+                <h1 className='valueCard'>{props.Value}</h1>
                 <hr />
                 <p className={`statusCard ${props.statusCard?.includes('+') ? 'Active' : ''}`}>{props.statusCard}</p>
 
@@ -14,8 +14,13 @@ function Card(props) {
         </>
     )
 }
-export default function CardsMain() {
-
+export default function CardsMain({ hidden }) {
+    const toggleMenuConfig = () => {
+        setUi(prev => ({
+            ...prev,
+            openConfig: !prev.openConfig
+        }));    
+    };
     const ApiUrl = import.meta.env.VITE_API_URL;
     const [Values, setValues] = useState({ CPUValue: 0, CpuStatus: '', CPUAverageValue: 0, CpuAverageStatus: '', RAMValue: 0, RamStatus: '', RAMAverageValue: 0, RamAverageStatus: '', DISKValue: 0, DISKStatus: '', DISKAverageValue: 0, DISKAverageStatus: '' })
     useEffect(() => {
@@ -41,7 +46,7 @@ export default function CardsMain() {
                 <header>
                     <h1 translate='no' className='title___CardsMain'>Dashboard</h1>
                     <div className="icons">
-                        <img src="https://img.icons8.com/?size=100&id=364&format=png&color=ffffff" alt="Icon Config" className='iconConfig icon' />
+                        <img src="https://img.icons8.com/?size=100&id=364&format=png&color=ffffff" alt="Icon Config" className='iconConfig icon' onClick={toggleMenuConfig}/>
                         <img src="https://img.icons8.com/?size=100&id=82779&format=png&color=ffffff" alt="Icon bell" className='iconBell icon' />
                     </div>
                 </header>

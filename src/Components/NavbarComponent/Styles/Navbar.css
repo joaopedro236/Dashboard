@@ -24,6 +24,10 @@
     pointer-events: all;
     transform: translateY(0);
 }
+.Hidden {
+  opacity: 0;
+  transform: translateY(-100px);
+}
 .closeMenu {
     background-color: transparent;
     border: none;
@@ -33,10 +37,7 @@
     color: var(--white);
     left: 20px;
 }
-.logo {
-    color: var(--white);
-    font-size: 20px;
-}
+
 
 .iconMenu {
     width: 100%;
@@ -52,9 +53,7 @@
     align-items: center;
     transform: translateX(-50px);
     padding: 24px;
-    ;
     width: 100%;
-    max-width: 300px;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
     position: fixed;
     background-color: var(--background-body);
@@ -99,11 +98,14 @@
     filter: saturate(1);
 }
 
-.menu ul p {
-
+.menu ul p { 
+    color: var(--text-grey);
     font-size: 17px;
+    transition: color 0.2s ease-in-out;
 }
-
+.menu ul p.Active {
+    color: white;
+}
 @media (min-width:768px) {
 
     .menu,

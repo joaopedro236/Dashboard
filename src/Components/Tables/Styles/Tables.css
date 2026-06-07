@@ -39,4 +39,8 @@
     border: 1px solid var(--border);
     color: var(--white);
     padding: 6px 10px;
+    
+}
+.line {
+    height: 30cm;
 }

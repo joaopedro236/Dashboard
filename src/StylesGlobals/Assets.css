@@ -1,11 +1,14 @@
+
 body {
     font-family: sans-serif;
     background-color: var(--background-body);
     overflow-x: hidden;
     color: white;
+    height: 120vh;
+    transition: padding-left 0.3s ease-in-out;
 }
 main {
-    padding-top: 15px;
+    padding-top: 5px;
 }
 button {
     cursor: pointer;
@@ -15,4 +18,15 @@ hr {
     margin: 5px 0;
     width: 100%;
     border: 1px solid var(--border);
+}
+.logo {
+    color: var(--white);
+    font-size: 20px;
+}
+
+
+@media (min-width:1024px) {
+    body {
+        padding-left: 260px;
+    }
 }
