@@ -126,7 +126,17 @@ def chart_history(history):
         }
         for i, value in enumerate(history)
     ]
-
+def chart_network_history(download_history, upload_history):
+    return [
+        {
+            "index": i,
+            "value": round(download, 2),
+            "valueUpload": round(upload, 2)
+        }
+        for i, (download, upload) in enumerate(
+            zip(download_history, upload_history)
+        )
+    ]
 
 @app.get("/")
 def root():
@@ -189,20 +199,23 @@ def get_metrics():
             "history": chart_history(disk_history)
         },
         "network": {
-            "Download": {
+            "DownloadOrUpload": {
                 "current": mbps(download),
                 "average": mbps(download_avg),
                 "change": f"{format_change(download_change)} Mbps",
                 "status": get_change_status(download_change),
-                "history": chart_history(download_history)
+
+                "currentUpload": mbps(upload),
+                "averageUpload": mbps(upload_avg),
+                "changeUpload": f"{format_change(upload_change)} Mbps",
+                "statusUpload": get_change_status(upload_change),
+
+                "history": chart_network_history(
+                    download_history,
+                    upload_history
+                )
             },
-            "Upload": {
-                "current": mbps(upload),
-                "average": mbps(upload_avg),
-                "change": f"{format_change(upload_change)} Mbps",
-                "status": get_change_status(upload_change),
-                "history": chart_history(upload_history)
-            },
+
             "ping": {
                 "current": ms(ping),
                 "average": ms(ping_avg),
@@ -221,8 +234,6 @@ def get_metrics():
         },
         "timestamp": time.time()
     }
-
-
 @app.get("/processes")
 def get_processes():
     groups = {}
