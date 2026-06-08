@@ -225,31 +225,81 @@ def get_metrics():
 
 @app.get("/processes")
 def get_processes():
-    processes = []
+    groups = {}
 
-    for proc in psutil.process_iter([
-        "pid",
-        "name",
-        "cpu_percent",
-        "memory_info",
-        "status",
-        "username"
-    ]):
+    for proc in psutil.process_iter():
         try:
-            memory_bytes = proc.info["memory_info"].rss
-            memory_mb = memory_bytes / (1024 * 1024)
-            memory_gb = memory_bytes / (1024 ** 3)
+            name = proc.name() or "Unknown"
 
-            processes.append({
-                "pid": proc.info["pid"],
-                "name": proc.info["name"],
-                "cpu": f"{round(proc.info['cpu_percent'], 2)}%",
-                "memory": f"{memory_gb:.2f} GB",
-                "memory_mb": round(memory_mb, 2),
+            cpu = proc.cpu_percent(interval=None)
+            memory_info = proc.memory_info()
+
+            memory_gb = memory_info.rss / (1024 ** 3)
+            memory_percent = proc.memory_percent()
+
+            threads = proc.num_threads()
+
+            try:
+                handles = proc.num_handles()  # Windows
+            except:
+                handles = 0
+
+            try:
+                io = proc.io_counters()
+                read_mb = io.read_bytes / (1024 * 1024)
+                write_mb = io.write_bytes / (1024 * 1024)
+            except:
+                read_mb = 0
+                write_mb = 0
+
+            try:
+                connections = len(proc.net_connections())
+            except:
+                connections = 0
+
+            try:
+                uptime_hours = (
+                    time.time() - proc.create_time()
+                ) / 3600
+            except:
+                uptime_hours = 0
+
+            if name not in groups:
+                groups[name] = {
+                    "cpu": 0,
+                    "memory_gb": 0,
+                    "memory_percent": 0,
+                    "threads": 0,
+                    "handles": 0,
+                    "disk_read_mb": 0,
+                    "disk_write_mb": 0,
+                    "connections": 0,
+                    "processes": [],
+                    "uptimes": []
+                }
+
+            groups[name]["cpu"] += cpu
+            groups[name]["memory_gb"] += memory_gb
+            groups[name]["memory_percent"] += memory_percent
+            groups[name]["threads"] += threads
+            groups[name]["handles"] += handles
+            groups[name]["disk_read_mb"] += read_mb
+            groups[name]["disk_write_mb"] += write_mb
+            groups[name]["connections"] += connections
+            groups[name]["uptimes"].append(uptime_hours)
+
+            groups[name]["processes"].append({
+                "pid": proc.pid,
+                "cpu": round(cpu, 2),
                 "memory_gb": round(memory_gb, 2),
-                "threads": proc.num_threads(),
-                "status": proc.info["status"],
-                "user": proc.info["username"]
+                "memory_percent": round(memory_percent, 2),
+                "threads": threads,
+                "handles": handles,
+                "disk_read_mb": round(read_mb, 2),
+                "disk_write_mb": round(write_mb, 2),
+                "connections": connections,
+                "uptime_hours": round(uptime_hours, 2),
+                "status": proc.status()
             })
 
         except (
@@ -259,13 +309,47 @@ def get_processes():
         ):
             continue
 
-    processes.sort(
-        key=lambda x: x["memory_gb"],
+    apps = []
+
+    for name, data in groups.items():
+        avg_uptime = (
+            sum(data["uptimes"]) / len(data["uptimes"])
+            if data["uptimes"] else 0
+        )
+
+        apps.append({
+            "name": name,
+            "process_count": len(data["processes"]),
+            "current": {
+                "cpu_percent": round(data["cpu"], 2),
+                "memory_gb": round(data["memory_gb"], 2),
+                "memory_percent": round(data["memory_percent"], 2),
+                "threads": data["threads"],
+                "handles": data["handles"],
+                "disk_read_mb": round(data["disk_read_mb"], 2),
+                "disk_write_mb": round(data["disk_write_mb"], 2),
+                "connections": data["connections"],
+                "avg_uptime_hours": round(avg_uptime, 2)
+            },
+            "processes": data["processes"]
+        })
+
+    apps.sort(
+        key=lambda x: x["current"]["memory_gb"],
         reverse=True
     )
 
     return {
-        "total_processes": len(processes),
-        "processes": processes,
+        "cpu_total": round(psutil.cpu_percent(), 2),
+        "ram_total_gb": round(
+            psutil.virtual_memory().total / (1024 ** 3),
+            2
+        ),
+        "ram_used_gb": round(
+            psutil.virtual_memory().used / (1024 ** 3),
+            2
+        ),
+        "ram_percent": psutil.virtual_memory().percent,
+        "apps": apps,
         "timestamp": time.time()
     }
