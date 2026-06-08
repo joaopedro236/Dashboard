@@ -1,70 +1,81 @@
 # 🖥️ Hardware Monitoring Dashboard
 
-A modern and responsive dashboard developed to monitor hardware performance in real time, providing detailed insights into system resources, network activity, and overall machine health.
+A modern and responsive hardware monitoring dashboard built to provide real-time insights into system performance. The application combines an interactive frontend with a high-performance backend to visualize resource consumption, system activity, and machine health through intuitive charts and statistics.
 
-## 🚀 Technologies Used
+## 🚀 Technologies
 
-* **React** – Dynamic and interactive user interface
-* **Vite** – Fast development and optimized builds
-* **Python** – Backend data processing
-* **FastAPI** – High-performance API for hardware metrics
-* **HTML5** – Application structure
-* **CSS3** – Modern and responsive styling
+### Frontend
+
+* React
+* Vite
+* HTML5
+* CSS3
+* Recharts
+
+### Backend
+
+* Python
+* FastAPI
 
 ## 📊 Features
 
-### # CPU Monitoring
+### CPU Monitoring
 
-* Real-time CPU usage
-* Core utilization tracking
-* Performance statistics
+* Real-time CPU utilization
+* Per-core usage tracking
+* Performance statistics and averages
 
-### # RAM Monitoring
+### Memory Monitoring
 
-* Memory usage visualization
+* RAM usage visualization
 * Available and consumed memory
-* Historical usage analysis
+* Historical memory trends
 
-### # Disk Monitoring
+### Disk Monitoring
 
-* Storage capacity tracking
-* Used and available disk space
-* Read and write activity metrics
+* Total, used, and available storage
+* Disk read/write activity
+* Storage utilization analysis
 
-### # Network Monitoring
+### Network Monitoring
 
-* Upload and download speeds
+* Upload and download throughput
 * Active network connections
-* Network traffic analysis
+* Traffic monitoring and statistics
 
-### # Data Visualization
+### Process Monitoring
+
+* Running applications overview
+* CPU and memory consumption per process
+* Detailed process information
+
+### Data Visualization
 
 * Interactive charts and graphs
-* Real-time metric updates
-* Historical performance trends
+* Real-time updates
+* Historical performance analysis
 
-### # Tables & Reports
+### Reports & Statistics
 
-* Detailed hardware information
-* System statistics tables
-* Performance summaries
+* Hardware information tables
+* System performance summaries
+* Resource consumption averages
 
-### # System Averages
+## 🎯 Project Goal
 
-* Average CPU consumption
-* Average RAM utilization
-* Average network traffic
-* Average disk usage
-
-## 🎯 Objective
-
-Provide a centralized and intuitive platform for monitoring hardware resources, helping users and administrators identify performance issues, analyze system behavior, and make data-driven decisions through real-time metrics and historical insights.
+The objective of this project is to provide a centralized platform for monitoring hardware resources in real time, helping users understand system behavior, identify bottlenecks, and analyze performance through clear and accessible visualizations.
 
 ## ✨ Highlights
 
 * Real-time monitoring
-* Modern and responsive design
-* Fast and scalable architecture
-* Easy-to-read visual analytics
-* Efficient hardware resource management
-* Clean and user-friendly interface
+* Modern and responsive UI
+* Fast and lightweight architecture
+* Interactive data visualization
+* Scalable and maintainable code structure
+* Clean user experience
+
+## ⚠️ API Notice
+
+This project focuses primarily on the frontend experience, dashboard design, data visualization, and integration of hardware metrics.
+
+The FastAPI backend used to expose hardware information was based on publicly available resources and examples from the community, serving as a data provider for the dashboard. The main development effort of this project was concentrated on the frontend architecture, user interface, and real-time monitoring experience.
