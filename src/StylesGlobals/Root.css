@@ -16,6 +16,8 @@
     --black: black;
     --index-navbar: 20;
     --text-grey: #929292;
+    --btn-border: rgb(215, 97, 255);
+    --shadow:rgba(169, 75, 192, 0.206);
     --status-low: #199919;
     --status-high: #991919;
     --background-sidebar:rgba(12, 12, 14, 0.678);

@@ -22,8 +22,12 @@ export default function SideBar({ hidden }) {
                 }
             </ul>
             <div className="btns">
-                <button className={`btn ${btnActive ? 'Active' : ''}`} onClick={() => setBtnActive(prev => !prev)}>
-                    <a href="https://github.com/joaopedro236/Dashboard" className={`${btnActive ? 'Active' : ''}`} >View Github</a>
+                <button className={`btn ${btnActive ? 'Active' : ''}`} onClick={() => {
+                    window.location.href='https://github.com/joaopedro236/Hardware-Monitoring-Dashboard'
+                    setBtnActive(prev => !prev)
+
+                }}>
+                    View Github
                 </button>
             </div>
         </aside>
