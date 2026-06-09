@@ -18,12 +18,13 @@ import { useState, useEffect } from 'react';
 export default function Tables() {
     const [value, setValue] = useState(null)
     const ApiUrl = import.meta.env.VITE_API_URL;
-   
+
     useEffect(() => {
         const Fetch = async () => {
             try {
                 const Response = await fetch(`${ApiUrl}/metrics`)
                 const Data = await Response.json()
+                
                 setValue(Data)
 
             }

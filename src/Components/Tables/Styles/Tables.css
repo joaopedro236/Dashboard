@@ -51,4 +51,7 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
+    .table {
+        max-width: inherit;
+    }
 }

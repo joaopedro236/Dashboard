@@ -10,20 +10,23 @@
     padding: 20px;
     width: 220px;
     transition: opacity 0.3s ease-in-out, transform 0.4s ease-in-out;
-   
+
     background-color: var(--background-sidebar);
     backdrop-filter: blur(20px);
 }
+
 .sideBar.Active {
     filter: blur(0);
     opacity: 1;
     pointer-events: all;
     transform: translateY(0);
 }
+
 .Hidden {
-  opacity: 0;
-  transform: translateX(-100px);
+    opacity: 0;
+    transform: translateX(-100px);
 }
+
 .sideBar ul {
     display: flex;
     height: 100vh;
@@ -31,6 +34,7 @@
     justify-content: center;
     gap: 30px;
 }
+
 .sideBar li {
     display: flex;
     align-items: center;
@@ -38,30 +42,36 @@
     cursor: pointer;
     width: fit-content;
 }
+
 .sideBar li img {
     width: 23px;
     filter: saturate(0);
-    
+
     transition: filter 0.2s ease-in-out;
 }
+
 .sideBar li img.Active {
     filter: saturate(1);
 }
+
 .sideBar li p {
     font-size: 14px;
     transition: color 0.2s ease-in-out;
     color: var(--text-grey);
-    
+
 }
+
 .sideBar li p.Active {
     color: white
 }
+
 .btns {
     width: 100%;
     display: grid;
     place-items: center;
     height: min-content;
 }
+
 .btn {
     border-radius: 10px;
     width: 100%;
@@ -70,7 +80,7 @@
     padding: 10px;
     z-index: 2;
     color: var(--white);
-    transition: color  0.2s ease-in-out, border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out, border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     text-decoration: none;
     position: relative;
 }
@@ -86,21 +96,59 @@
 
 @keyframes btnActiveAnimation {
     0% {
-        width:0%;
+        width: 0%;
     }
+
     100% {
         width: 100%;
     }
 }
+
 .removeSideBar {
-    display: none ;
+    display: none;
 }
+
 @media (min-width:1024px) {
+
     .sideBar,
     .removeSideBar {
         display: flex;
     }
 }
+
+@media (min-width:1900px) {
+    .sideBar {
+        width: 350px;
+    }
+
+    .sideBar li p {
+        font-size: 19px;
+    }
+
+    .sideBar li img {
+        width: 30px;
+    }
+
+    .sideBar li {
+        gap: 20px;
+    }
+
+    .sideBar ul {
+        gap: 45px;
+    }
+
+    .logo {
+        font-size: 25px;
+    }
+
+    .btn {
+        padding: 15px;
+        font-size: 17.5px;
+    }
+
+}
+
+
 @media (hover:hover) {
     .sideBar li p:hover {
         color: white;

@@ -23,9 +23,11 @@
 .btnConfig.Active {
     animation: btnConfigAnimation 0.4s ease forwards;
 }
+
 .btnConfig.Hidden {
     display: none;
 }
+
 @keyframes btnConfigAnimation {
     0% {
         transform: rotate(0deg);
@@ -143,5 +145,26 @@
 
     .removeSideBar {
         display: flex;
+    }
+}
+
+@media (min-width:1900px) {
+    .btnConfig {
+        width: 60px;
+        height: 60px;
+    }
+
+    .configSection {
+        max-width: 430px;
+    }
+
+    .configSection header h1 {
+        font-size: 25px;
+    }
+    .closeConfig {
+        font-size: 18px;
+    }
+    .itemConfig h1 {
+        font-size: 15.5px;
     }
 }

@@ -16,7 +16,7 @@
 
 .CardsMainSection header h1 {
     font-size: 20px;
-    
+
 }
 
 .icons {
@@ -102,6 +102,32 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+}
+
+@media (min-width:1900px) {
+    .CardsMainSection header h1 {
+        font-size: 25px;
+    }
+
+    .icon {
+        max-width: 25px;
+    }
+
+    .titleCard {
+        font-size: 12.5px;
+        color: var(--text-grey);
+    }
+
+    .statusCard {
+        font-size: 14px;
+        color: var(--status-low);
+    }
+
+  
+
+    .valueCard {
+        font-size: 28.5px;
     }
 }
 

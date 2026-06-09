@@ -9,9 +9,10 @@ import CardsMain from './Components/CardsMainComponent/CardsMain'
 import Tables from './Components/Tables/Tables'
 import './StylesGlobals/Media.css'
 export default function App() {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   useEffect(() => {
     const handleResize = () => {
-      window.location.reload()
+      setWindowWidth(window.innerWidth);
     }
     window.addEventListener('resize', handleResize)
     return () => {
