@@ -53,7 +53,7 @@
     z-index: var(--index-config);
     padding: 20px;
     height: 100vh;
-    background-color: var(--background-body);
+    background-color: var(--background-main);
 }
 
 .configSection.Active {

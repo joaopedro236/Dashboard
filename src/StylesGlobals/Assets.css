@@ -1,15 +1,27 @@
-
 body {
     font-family: sans-serif;
-    background-color: var(--background-body);
+    background: var(--background-main);
     overflow-x: hidden;
+    position: relative;
     color: white;
-    height: 120vh;
+    width: 100%;
+    min-height: 100vh;
     transition: padding-left 0.3s ease-in-out;
 }
-main {
-    padding-top: 5px;
+
+body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--background-body);
 }
+
+
+main {
+    padding-top: 7px;
+}
+
 button {
     cursor: pointer;
 }
@@ -19,6 +31,7 @@ hr {
     width: 100%;
     border: 1px solid var(--border);
 }
+
 .logo {
     color: var(--white);
     font-size: 20px;

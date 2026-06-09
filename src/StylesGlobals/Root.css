@@ -1,23 +1,36 @@
 :root {
-    --background-body:#111112;
-    --white:white;
-    --black:black;
-    --index-navbar:20;
-    --text-grey:#929292;
-    --status-low:#199919;
-    --status-high:#991919;
-    --index-menu:25;
-    --table-fill:#b44bff56;
-    --index-config:30;
-    --grey:#555555bd;
+    --background-body: radial-gradient(circle at 15% 25%,
+            rgba(163, 92, 255, 0.18) 0%,
+            rgba(163, 92, 255, 0.08) 17%,
+            transparent 50%),
+        radial-gradient(circle at 85% 80%,
+            rgba(0, 208, 255, 0.1) 0%,
+            rgba(0, 180, 255, 0.04) 20%,
+            transparent 50%),
+        radial-gradient(circle at 75% 95%,
+            rgba(0, 255, 170, 0.06) 0%,
+            transparent 40%),
+        #05060d;
+    --background-main: #0C0C0E;
+    --white: white;
+    --black: black;
+    --index-navbar: 20;
+    --text-grey: #929292;
+    --status-low: #199919;
+    --status-high: #991919;
+    --background-sidebar:rgba(12, 12, 14, 0.678);
+    --index-menu: 25;
+    --table-fill: #b44bff56;
+    --index-config: 30;
+    --grey: #555555bd;
     --border-type-two: #ffffff5c;
     --background-btn-sidebar: linear-gradient(to left, rgb(29, 102, 158), rgb(17, 81, 140));
-    --border:rgba(249, 249, 249, 0.063);
-    --background-card: rgba(19, 19, 21, 0.341);
-    --background-btn-config:#f1f1f1;
-    --table-color:#b44bff;
+    --border: rgba(255, 255, 255, 0.063);
+    --background-card: #0c0c0e9e;
+    --background-btn-config: #f1f1f1;
+    --table-color: #b44bff;
     --table-color-upload: rgb(101, 30, 255);
-    --background-btn:#3c3c40;
+    --background-btn: #3c3c40;
     --background-btn-active: #2e2e31;
 
 }

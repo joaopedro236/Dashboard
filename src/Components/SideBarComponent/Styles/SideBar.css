@@ -1,6 +1,6 @@
 .sideBar {
     display: none;
-    height: 100vh;
+    height: calc(100vh - 24px);
     position: fixed;
     top: 0;
     left: 0;
@@ -8,10 +8,11 @@
     overflow-y: auto;
     flex-direction: column;
     padding: 20px;
-    width: 230px;
+    width: 220px;
     transition: opacity 0.3s ease-in-out, transform 0.4s ease-in-out;
-    z-index: var(--index-menu);
-    background-color: var(--background-body);
+   
+    background-color: var(--background-sidebar);
+    backdrop-filter: blur(20px);
 }
 .sideBar.Active {
     filter: blur(0);
@@ -40,6 +41,7 @@
 .sideBar li img {
     width: 23px;
     filter: saturate(0);
+    
     transition: filter 0.2s ease-in-out;
 }
 .sideBar li img.Active {
@@ -49,6 +51,7 @@
     font-size: 14px;
     transition: color 0.2s ease-in-out;
     color: var(--text-grey);
+    
 }
 .sideBar li p.Active {
     color: white

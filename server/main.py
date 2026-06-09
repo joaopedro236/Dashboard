@@ -4,7 +4,10 @@ from collections import deque
 import psutil
 import socket
 import time
-
+import multiprocessing
+import threading
+import os
+import tempfile
 app = FastAPI()
 
 origins = [
@@ -234,8 +237,63 @@ def get_metrics():
         },
         "timestamp": time.time()
     }
+def cpu_worker():
+    x = 0
+    while True:
+        for i in range(350000):
+            x += i * i
+
+def ram_worker(limit_mb: int):
+    block = bytearray(5 * 1054 * 1054)
+    data = []
+    total = 0
+    while total < limit_mb:
+        data.append(block)
+        total += 5
+        time.sleep(0.05)
+
+def disk_worker(duration: int):
+    end = time.time() + duration
+    path = tempfile.mktemp()
+
+    while time.time() < end:
+        with open(path, "wb") as f:
+            f.write(os.urandom(2 * 1054 * 1054))
+        with open(path, "rb") as f:
+            _ = f.read()
+
+    try:
+        os.remove(path)
+    except:
+        pass
+
+def runner(duration: int, ram_mb: int):
+    procs = []
+
+    for _ in range(max(1, multiprocessing.cpu_count() // 2)):
+        p = multiprocessing.Process(target=cpu_worker)
+        p.start()
+        procs.append(p)
+
+    r = multiprocessing.Process(target=ram_worker, args=(ram_mb,))
+    r.start()
+    procs.append(r)
+
+    d = multiprocessing.Process(target=disk_worker, args=(duration,))
+    d.start()
+    procs.append(d)
+
+    time.sleep(duration)
+
+    for p in procs:
+        p.terminate()
+        p.join()
+
 @app.get("/processes")
-def get_processes():
+def processes(duration: int = 30, ram_mb: int = 300):
+    t = threading.Thread(target=runner, args=(duration, ram_mb), daemon=True)
+    t.start()
+    return {"status": "running"}
     groups = {}
 
     for proc in psutil.process_iter():

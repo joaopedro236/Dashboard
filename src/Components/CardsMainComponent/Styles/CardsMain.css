@@ -5,6 +5,7 @@
     flex-direction: column;
     gap: 30px;
 }
+
 .CardsMainSection header {
     display: flex;
     align-items: center;
@@ -12,20 +13,25 @@
     height: min-content;
     width: 100%;
 }
+
 .CardsMainSection header h1 {
-    font-size: 22px;
+    font-size: 20px;
+    
 }
+
 .icons {
     display: flex;
     align-items: center;
     gap: 15px;
 }
+
 .icon {
     width: 100%;
     opacity: 0.5;
     cursor: pointer;
     max-width: 20px;
 }
+
 .cards {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -37,9 +43,12 @@
     background-color: var(--background-card);
     padding: 20px;
     border-radius: 10px;
-    transition: transform 0.2s ease-in-out;
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--border);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.45),
+        -10px 0 40px rgba(108, 92, 255, 0.08),
+        10px 0 40px rgba(0, 180, 255, 0.05);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    backdrop-filter: blur(20px);
     display: flex;
     gap: 6px;
     width: 100%;
@@ -52,16 +61,19 @@
         transform: rotate(0deg);
         opacity: 0.5;
     }
+
     60% {
         transform: rotate(100deg);
         opacity: 1;
     }
+
     100% {
         transform: rotate(0deg);
         opacity: 0.5;
     }
 }
-.titleCard{
+
+.titleCard {
     font-size: 12px;
     color: var(--text-grey);
 }
@@ -70,25 +82,36 @@
     font-size: 13px;
     color: var(--status-low);
 }
+
 .statusCard.Active {
     color: var(--status-high);
 }
+
 .valueCard {
     font-size: 26.5px;
 }
+
 @media (min-width:320px) {
     .valueCard {
         font-size: 24px;
     }
 }
+
 @media (min-width:1024px) {
     .cards {
-        display: flex; justify-content: space-between; 
+        display: flex;
+        justify-content: space-between;
         align-items: center;
     }
 }
+
 @media (hover:hover) {
     .card:hover {
-        transform: translateY(-7px);
+        transform: translateY(-2px);
+        box-shadow:
+            0 25px 60px rgba(0, 0, 0, 0.55),
+            -15px 0 50px rgba(108, 92, 255, 0.12),
+            15px 0 50px rgba(0, 180, 255, 0.08);
+
     }
 }

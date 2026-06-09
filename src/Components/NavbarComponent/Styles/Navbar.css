@@ -10,11 +10,11 @@
     transform: translateY(-100px);
     align-items: center;
     justify-content: space-between;
-    padding: 15px;
+    padding: 15px 23px;
     height: 65px;
     filter: blur(4px);
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, filter 0.2s ease-in-out;
-    background-color: var(--background-body);
+    background-color: var(--background-main);
     z-index: var(--index-navbar);
 }
 
@@ -56,7 +56,7 @@
     width: 100%;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
     position: fixed;
-    background-color: var(--background-body);
+    background-color: var(--background-main);
     height: 100vh;
     z-index: var(--index-menu);
 }
