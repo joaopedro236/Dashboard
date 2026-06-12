@@ -2,6 +2,15 @@
 
 A modern and responsive hardware monitoring dashboard built to provide real-time insights into system performance. The application combines an interactive frontend with a high-performance backend to visualize resource consumption, system activity, and machine health through intuitive charts and statistics.
 
+## Live Demo
+
+Experience the Hardware Monitoring Dashboard in action:
+
+🔗 Frontend: https://hardware-monitoring-dashboard.vercel.app
+
+🔗 Backend API: https://hardware-monitoring-dashboard.onrender.com
+
+
 ## 🚀 Technologies
 
 ### Frontend
