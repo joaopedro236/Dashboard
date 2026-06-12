@@ -5,7 +5,7 @@ import {
     Cell,
     Tooltip
 } from 'recharts';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 export default function Infrastructure({ Data }) {
     const parsePercent = (value) => {
         if (value == null) return 0;
@@ -29,13 +29,42 @@ export default function Infrastructure({ Data }) {
     const hasWarnings = Boolean(
         cpuHigh || ramHigh || diskHigh
     );
+    const prevDisk = useRef(false);
+    const prevCpu = useRef(false);
+    const prevRam = useRef(false);
     useEffect(() => {
-        setValueHigh(prev => ({
-            ...prev,
-            cpuWarning: cpuHigh ? prev.cpuWarning + 1 : prev.cpuWarning,
-            ramWarning: ramHigh ? prev.ramWarning + 1 : prev.ramWarning,
-            diskWarning: diskHigh ? prev.diskWarning + 1 : prev.diskWarning,
-        }));
+        setValueHigh(prev => {
+            const newState = { ...prev };
+
+            if (cpuHigh && !prevCpu.current) {
+                newState.cpuWarning += 1;
+                prevCpu.current = true;
+            }
+
+            if (!cpuHigh) {
+                prevCpu.current = false;
+            }
+
+            if (ramHigh && !prevRam.current) {
+                newState.ramWarning += 1;
+                prevRam.current = true;
+            }
+
+            if (!ramHigh) {
+                prevRam.current = false;
+            }
+
+            if (diskHigh && !prevDisk.current) {
+                newState.diskWarning += 1;
+                prevDisk.current = true;
+            }
+
+            if (!diskHigh) {
+                prevDisk.current = false;
+            }
+
+            return newState;
+        });
     }, [Data, cpuHigh, ramHigh, diskHigh])
     if (!Data) {
         return <div>Loading...</div>
