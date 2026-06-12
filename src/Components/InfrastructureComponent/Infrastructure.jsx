@@ -114,7 +114,7 @@ export default function Infrastructure({ Data }) {
                             <p className='notificationWarning'>{valueHigh.diskWarning}</p>
                         </div>
                     )}
-                    {!cpuHigh && !ramHigh && !diskHigh && (
+                    {!(cpuHigh || ramHigh || diskHigh) && (
                         <div className="noWarning">
                             <p>No Warning</p>
                         </div>
