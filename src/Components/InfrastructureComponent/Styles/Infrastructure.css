@@ -94,7 +94,8 @@
     padding: 13px;
     border: 1px solid var(--border  );
     border-radius: 10px;
-    display: none;
+    display: flex
+    ;
     align-items: center;
     transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
     justify-content: space-between;
@@ -115,9 +116,7 @@
     font-size: 15px;
 }
 
-.warningContent.Active{
-    display: flex;
-}
+
 .valueTextWarning{
     font-size: 14px;
 }

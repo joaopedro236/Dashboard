@@ -7,8 +7,13 @@ import {
 } from 'recharts';
 import { useState, useEffect } from 'react';
 export default function Infrastructure({ Data }) {
-    const parsePercent = (value) =>
-        Number(String(value).replace('%', '')) || 0;
+    const parsePercent = (value) => {
+        if (value == null) return 0;
+
+        const num = Number(String(value).replace('%', '').trim());
+
+        return Number.isFinite(num) ? num : 0;
+    };
     const COLORS = ['var(--infrastructure-background-type-one)', 'var(--infrastructure-background-type-two)', 'var(--infrastructure-background-type-three)', 'var(--infrastructure-background-type-four)'];
     const chartData = [
         { name: 'CPU', value: parsePercent(Data?.cpu?.current) },
@@ -21,7 +26,9 @@ export default function Infrastructure({ Data }) {
     const cpuHigh = chartData[0]?.value > 70
     const ramHigh = chartData[1]?.value > 70
     const diskHigh = chartData[2]?.value > 70
-    const hasWarnings = cpuHigh || ramHigh || diskHigh;
+    const hasWarnings = Boolean(
+        cpuHigh || ramHigh || diskHigh
+    );
     useEffect(() => {
 
         if (cpuHigh && !valueHigh.cpuHigh) {
@@ -110,10 +117,10 @@ export default function Infrastructure({ Data }) {
                             />
                         </PieChart>
                         <ul>
-                            <li className='text__typeOne'>CPU: {Data.cpu.current}</li>
-                            <li className='text__typeTwo'>RAM: {Data.ram.current}</li>
-                            <li className='text__typeThree'>Disk: {Data.disk.current}</li>
-                            <li className='text__typeFour'>Network: {Data.network.DownloadOrUpload.current}</li>
+                            <li className='text__typeOne'>CPU: {Data?.cpu?.current}</li>
+                            <li className='text__typeTwo'>RAM: {Data?.ram?.current}</li>
+                            <li className='text__typeThree'>Disk: {Data?.disk?.current}</li>
+                            <li className='text__typeFour'>Network: {Data?.network?.DownloadOrUpload?.current}</li>
                         </ul>
                     </div>
                 </div>
@@ -121,27 +128,31 @@ export default function Infrastructure({ Data }) {
                     <header>
                         <h1>Warnings</h1>
                     </header>
-                    {
-                        !hasWarnings && (
-                            <div className={`noWarning`}>
-                                <p>No Warning</p>
+                    {hasWarnings ? (
+                        <>
+
+
+                            <div className={`CpuWarning warningContent ${valueHigh.cpuHigh ? 'Active' : ''}`}>
+                                <p className='valueTextWarning'>CPU usage above 70%</p>
+
+                                <p className='notificationWarning'>{valueHigh.cpuWarning}</p>
                             </div>
-                        )
-                    }
+                            <div className={`RamWarning warningContent ${valueHigh.ramHigh ? 'Active' : ''}`}>
+                                <p className='valueTextWarning'>RAM usage above 70%</p>
+                                <p className='notificationWarning'>{valueHigh.ramWarning}</p>
+                            </div>
+                            <div className={`DiskWarning warningContent ${valueHigh.diskHigh ? 'Active' : ''}`}>
+                                <p className='valueTextWarning'>Disk usage above 70%</p>
+                                <p className='notificationWarning'>{valueHigh.diskWarning}</p>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="noWarning">
+                            <p>No Warning</p>
+                        </div>
+                    )}
 
-                    <div className={`CpuWarning warningContent ${valueHigh.cpuHigh ? 'Active' : ''}`}>
-                        <p className='valueTextWarning'>CPU usage above 70%</p>
 
-                        <p className='notificationWarning'>{valueHigh.cpuWarning}</p>
-                    </div>
-                    <div className={`RamWarning warningContent ${valueHigh.ramHigh ? 'Active' : ''}`}>
-                        <p className='valueTextWarning'>RAM usage above 70%</p>
-                        <p className='notificationWarning'>{valueHigh.ramWarning}</p>
-                    </div>
-                    <div className={`DiskWarning warningContent ${valueHigh.diskHigh ? 'Active' : ''}`}>
-                        <p className='valueTextWarning'>Disk usage above 70%</p>
-                        <p className='notificationWarning'>{valueHigh.diskWarning}</p>
-                    </div>
                 </div>
             </section>
         </>
