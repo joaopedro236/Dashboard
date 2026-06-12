@@ -16,14 +16,14 @@ export default function Infrastructure({ Data }) {
         { name: 'Disk', value: parsePercent(Data?.disk?.current) },
         { name: 'Network', value: parsePercent(Data?.network?.DownloadOrUpload?.current) }
     ];
+    const [valueHigh, setValueHigh] = useState({ cpuHigh: false, cpuWarning: 0, ramHigh: false, ramWarning: 0, diskHigh: false, diskWarning: 0 })
     if (!Data) {
         return <div>Loading...</div>
     }
-    const hasWarnings = cpuHigh || ramHigh || diskHigh;
-    const [valueHigh, setValueHigh] = useState({ cpuHigh: false, cpuWarning: 0, ramHigh: false, ramWarning: 0, diskHigh: false, diskWarning: 0 })
     const cpuHigh = chartData[0]?.value > 70
     const ramHigh = chartData[1]?.value > 70
     const diskHigh = chartData[2]?.value > 70
+    const hasWarnings = cpuHigh || ramHigh || diskHigh;
     useEffect(() => {
 
         if (cpuHigh && !valueHigh.cpuHigh) {
