@@ -10,19 +10,13 @@ import os
 import tempfile
 app = FastAPI()
 
-origins = [
-    "http://localhost:3000",
-    "http://localhost:5173",
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["https://SEU-PROJETO.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 HISTORY_SIZE = 5
 
 cpu_history = deque(maxlen=HISTORY_SIZE)
