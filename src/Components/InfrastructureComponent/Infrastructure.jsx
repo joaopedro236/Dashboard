@@ -93,25 +93,28 @@ export default function Infrastructure({ Data }) {
                     <header>
                         <h1>Warnings</h1>
                     </header>
-                    {hasWarnings ? (
-                        <>
 
 
-                            <div className={`CpuWarning warningContent ${valueHigh.cpuHigh ? 'Active' : ''}`}>
-                                <p className='valueTextWarning'>CPU usage above 70%</p>
+                    {cpuHigh && (
+                        <div className={`CpuWarning warningContent ${valueHigh.cpuHigh ? 'Active' : ''}`}>
+                            <p className='valueTextWarning'>CPU usage above 70%</p>
 
-                                <p className='notificationWarning'>{valueHigh.cpuWarning}</p>
-                            </div>
-                            <div className={`RamWarning warningContent ${valueHigh.ramHigh ? 'Active' : ''}`}>
-                                <p className='valueTextWarning'>RAM usage above 70%</p>
-                                <p className='notificationWarning'>{valueHigh.ramWarning}</p>
-                            </div>
-                            <div className={`DiskWarning warningContent ${valueHigh.diskHigh ? 'Active' : ''}`}>
-                                <p className='valueTextWarning'>Disk usage above 70%</p>
-                                <p className='notificationWarning'>{valueHigh.diskWarning}</p>
-                            </div>
-                        </>
-                    ) : (
+                            <p className='notificationWarning'>{valueHigh.cpuWarning}</p>
+                        </div>
+                    )}
+                    {ramHigh && (
+                        <div className={`RamWarning warningContent ${valueHigh.ramHigh ? 'Active' : ''}`}>
+                            <p className='valueTextWarning'>RAM usage above 70%</p>
+                            <p className='notificationWarning'>{valueHigh.ramWarning}</p>
+                        </div>
+                    )}
+                    {diskHigh && (
+                        <div className={`DiskWarning warningContent ${valueHigh.diskHigh ? 'Active' : ''}`}>
+                            <p className='valueTextWarning'>Disk usage above 70%</p>
+                            <p className='notificationWarning'>{valueHigh.diskWarning}</p>
+                        </div>
+                    )}
+                    {!cpuHigh && !ramHigh && !diskHigh && (
                         <div className="noWarning">
                             <p>No Warning</p>
                         </div>
