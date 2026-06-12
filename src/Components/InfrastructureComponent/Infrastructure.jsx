@@ -19,9 +19,10 @@ export default function Infrastructure({ Data }) {
     if (!Data) {
         return <div>Loading...</div>
     }
-    const [valueHigh, setValueHigh] = useState({ cpuHigh: false, cpuWarning: 0, ramHigh:false, ramWarning:0, diskHigh:false, diskWarning:0})
+    const [valueHigh, setValueHigh] = useState({ cpuHigh: false, cpuWarning: 0, ramHigh: false, ramWarning: 0, diskHigh: false, diskWarning: 0 })
     const cpuHigh = chartData[0]?.value > 70
     const ramHigh = chartData[1]?.value > 70
+    const [noWarningRemove, setNoWarningRemove] = useState(false)
     const diskHigh = chartData[2]?.value > 70
     useEffect(() => {
 
@@ -30,6 +31,7 @@ export default function Infrastructure({ Data }) {
                 ...prev,
                 cpuHigh: true,
                 cpuWarning: prev.cpuWarning + 1
+
             }))
         }
         if (!cpuHigh && valueHigh.cpuHigh) {
@@ -37,6 +39,7 @@ export default function Infrastructure({ Data }) {
                 ...prev,
                 cpuHigh: false
             }));
+            setNoWarningRemove(false)
         }
         if (ramHigh && !valueHigh.ramHigh) {
             setValueHigh(prev => ({
@@ -44,25 +47,29 @@ export default function Infrastructure({ Data }) {
                 ramHigh: true,
                 ramWarning: prev.ramWarning + 1
             }))
+            setNoWarningRemove(true)
         }
         if (!ramHigh && valueHigh.ramHigh) {
             setValueHigh(prev => ({
                 ...prev,
                 ramHigh: false
             }));
+            setNoWarningRemove(false)
         }
-         if (diskHigh && !valueHigh.diskHigh) {
+        if (diskHigh && !valueHigh.diskHigh) {
             setValueHigh(prev => ({
                 ...prev,
                 diskHigh: true,
                 diskWarning: prev.diskWarning + 1
             }))
+            setNoWarningRemove(true)
         }
         if (!diskHigh && valueHigh.diskHigh) {
             setValueHigh(prev => ({
                 ...prev,
                 diskHigh: false
             }));
+            setNoWarningRemove(false)
         }
     }, [cpuHigh, ramHigh, diskHigh])
     return (
@@ -118,14 +125,18 @@ export default function Infrastructure({ Data }) {
                     <header>
                         <h1>Warnings</h1>
                     </header>
-                        <div className={`CpuWarning warningContent ${valueHigh.cpuHigh ? 'Active' : ''}`}>
-                            <p className='valueTextWarning'>CPU usage above 70%</p>
-                            <p className='notificationWarning'>{valueHigh.cpuWarning}</p>
-                        </div>
-                        <div className={`RamWarning warningContent ${valueHigh.ramHigh ? 'Active' : ''}`}>
-                            <p className='valueTextWarning'>RAM usage above 70%</p>
-                            <p className='notificationWarning'>{valueHigh.ramWarning}</p>
-                        </div>
+                    <div className={`noWarning ${noWarningRemove ? 'Active' : ''}`}>
+                        <p>No Warning</p>
+                    </div>
+                    <div className={`CpuWarning warningContent ${valueHigh.cpuHigh ? 'Active' : ''}`}>
+                        <p className='valueTextWarning'>CPU usage above 70%</p>
+
+                        <p className='notificationWarning'>{valueHigh.cpuWarning}</p>
+                    </div>
+                    <div className={`RamWarning warningContent ${valueHigh.ramHigh ? 'Active' : ''}`}>
+                        <p className='valueTextWarning'>RAM usage above 70%</p>
+                        <p className='notificationWarning'>{valueHigh.ramWarning}</p>
+                    </div>
                 </div>
             </section>
         </>
