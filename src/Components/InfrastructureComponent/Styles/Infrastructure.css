@@ -114,9 +114,7 @@
     color: var(--text-grey);
     font-size: 15px;
 }
-.noWarning.Active {
-    display: none;
-}
+
 .warningContent.Active{
     display: flex;
 }

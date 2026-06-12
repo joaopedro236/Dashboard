@@ -17,7 +17,7 @@ export default function Infrastructure({ Data }) {
         { name: 'Network', value: parsePercent(Data?.network?.DownloadOrUpload?.current) }
     ];
     const [valueHigh, setValueHigh] = useState({ cpuHigh: false, cpuWarning: 0, ramHigh: false, ramWarning: 0, diskHigh: false, diskWarning: 0 })
-   
+
     const cpuHigh = chartData[0]?.value > 70
     const ramHigh = chartData[1]?.value > 70
     const diskHigh = chartData[2]?.value > 70
@@ -64,8 +64,8 @@ export default function Infrastructure({ Data }) {
                 diskHigh: false
             }));
         }
-    }, [Data,cpuHigh, ramHigh, diskHigh,valueHigh])
-     if (!Data) {
+    }, [Data, cpuHigh, ramHigh, diskHigh])
+    if (!Data) {
         return <div>Loading...</div>
     }
     return (
@@ -121,9 +121,14 @@ export default function Infrastructure({ Data }) {
                     <header>
                         <h1>Warnings</h1>
                     </header>
-                    <div className={`noWarning ${!hasWarnings ? 'Active' : ''}`}>
-                        <p>No Warning</p>
-                    </div>
+                    {
+                        !hasWarnings && (
+                            <div className={`noWarning`}>
+                                <p>No Warning</p>
+                            </div>
+                        )
+                    }
+
                     <div className={`CpuWarning warningContent ${valueHigh.cpuHigh ? 'Active' : ''}`}>
                         <p className='valueTextWarning'>CPU usage above 70%</p>
 
