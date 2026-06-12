@@ -12,7 +12,10 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://SEU-PROJETO.vercel.app"],
+    allow_origins=[
+        "https://hardware-monitoring-dashboard.vercel.app",
+        "https://hardware-monitoring-dashboard-1y8hfbqpa-joao-pedro4.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
