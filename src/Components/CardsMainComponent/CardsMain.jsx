@@ -1,5 +1,5 @@
 import './Styles/CardsMain.css'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 function Card(props) {
 
     return (
@@ -14,7 +14,7 @@ function Card(props) {
         </>
     )
 }
-export default function CardsMain({ui,setUi, isOpen }) {
+export default function CardsMain({ ui, setUi, isOpen, Data }) {
     const toggleMenuConfig = () => {
         setUi(prev => ({
             ...prev,
@@ -22,46 +22,31 @@ export default function CardsMain({ui,setUi, isOpen }) {
             isOpen: !prev.isOpen
         }));
     };
-    const ApiUrl = import.meta.env.VITE_API_URL;
-    const [iconsActive,setIconsActive] = useState({iconConfig:false, iconBell:false})
-    const [Values, setValues] = useState({ CPUValue: 0, CpuStatus: '', CPUAverageValue: 0, CpuAverageStatus: '', RAMValue: 0, RamStatus: '', RAMAverageValue: 0, RamAverageStatus: '', DISKValue: 0, DISKStatus: '', DISKAverageValue: 0, DISKAverageStatus: '' })
-    useEffect(() => {
-        const Fetch = async () => {
-            try {
-                const Response = await fetch(`${ApiUrl}/metrics`)
-                const Data = await Response.json()
-                setValues({ CPUValue: Data.cpu.current, CpuStatus: Data.cpu.change, CPUAverageValue: Data.cpu.average, CpuAverageStatus: Data.cpu.change, RAMValue: Data.ram.current, RamStatus: Data.ram.change, RAMAverageValue: Data.ram.average, RamAverageStatus: Data.ram.change, DISKValue: Data.disk.current, DISKStatus: Data.disk.change, DISKAverageValue: Data.disk.average, DISKAverageStatus: Data.disk.change })
-
-            } catch (error) {
-                console.error(error.message)
-            }
-        }
-        Fetch()
-        const interval = setInterval(() => {
-            Fetch()
-        }, 3000);
-        return () => clearInterval(interval)
-    }, [])
+    
+    const [iconsActive, setIconsActive] = useState({ iconConfig: false, iconBell: false })
+    if (!Data) {
+        return <div>Loading...</div>
+    }
     return (
         <>
             <section className="CardsMainSection">
                 <header>
                     <h1 translate='no' className='title___CardsMain'>Dashboard</h1>
                     <div className="icons">
-                        <img src="https://img.icons8.com/?size=100&id=364&format=png&color=ffffff" alt="Icon Config" className={`iconConfig ${iconsActive.iconConfig ? 'Active' : ''} icon`} onClick={()=>{
+                        <img src="https://img.icons8.com/?size=100&id=364&format=png&color=ffffff" alt="Icon Config" className={`iconConfig ${iconsActive.iconConfig ? 'Active' : ''} icon`} onClick={() => {
                             toggleMenuConfig()
-                            setIconsActive(prev => ({...prev, iconConfig: !prev.iconConfig}))
-                        }}/>
+                            setIconsActive(prev => ({ ...prev, iconConfig: !prev.iconConfig }))
+                        }} />
                         <img src="https://img.icons8.com/?size=100&id=82779&format=png&color=ffffff" alt="Icon bell" className={`iconBell icon ${iconsActive.iconBell ? 'Active' : ''}`} onClick={() => {
-                            setIconsActive(prev => ({...prev, iconBell: !prev.iconBell}))
-                        }}/>
+                            setIconsActive(prev => ({ ...prev, iconBell: !prev.iconBell }))
+                        }} />
                     </div>
                 </header>
                 <div className="cards">
-                    <Card titleCard='CPU Value' Value={Values.CPUValue} statusCard={Values.CpuStatus} />
-                    <Card titleCard='CPU Average' Value={Values.CPUAverageValue} statusCard={Values.CpuAverageStatus} />
-                    <Card titleCard='RAM Value' Value={Values.RAMValue} statusCard={Values.RamStatus} />
-                    <Card titleCard='RAM Average ' Value={Values.RAMAverageValue} statusCard={Values.RamAverageStatus} />
+                    <Card titleCard='CPU Value' Value={Data.cpu.current} statusCard={Data.cpu.change} />
+                    <Card titleCard='CPU Average' Value={Data.cpu.average} statusCard={Data.cpu.change} />
+                    <Card titleCard='RAM Value' Value={Data.ram.current} statusCard={Data.ram.change} />
+                    <Card titleCard='RAM Average ' Value={Data.ram.average} statusCard={Data.ram.change} />
                 </div>
             </section>
         </>

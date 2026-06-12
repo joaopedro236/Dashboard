@@ -148,7 +148,7 @@ def root():
 
 @app.get("/metrics")
 def get_metrics():
-    cpu = normalize(psutil.cpu_percent(interval=None))
+    cpu = normalize(psutil.cpu_percent(interval=None)) 
     ram = normalize(psutil.virtual_memory().percent)
     disk = normalize(get_disk_usage())
 
@@ -234,6 +234,13 @@ def get_metrics():
             "download_average": mbps(download_avg),
             "upload_average": mbps(upload_avg),
             "ping_average": ms(ping_avg)
+        },
+        "Infrastructure": {
+            "currentCpu": percent(cpu),
+            "currentRam": percent(ram),
+            "currentDisk": percent(disk),
+            "currentNetwork": mbps(download),
+
         },
         "timestamp": time.time()
     }

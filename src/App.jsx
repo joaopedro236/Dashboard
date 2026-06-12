@@ -1,12 +1,13 @@
+import { useState, useEffect } from 'react'
 import './StylesGlobals/Reset.css'
 import './StylesGlobals/Assets.css'
 import './StylesGlobals/Root.css'
 import Navbar from './Components/NavbarComponent/Navbar'
-import { useState,useEffect } from 'react'
 import SideBar from './Components/SideBarComponent/SideBar'
-import Config from './Components/ConfigComponent/Config'
 import CardsMain from './Components/CardsMainComponent/CardsMain'
 import Tables from './Components/Tables/Tables'
+import Config from './Components/ConfigComponent/Config'
+import Infrastructure from './Components/InfrastructureComponent/Infrastructure'
 import './StylesGlobals/Media.css'
 export default function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -18,7 +19,22 @@ export default function App() {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  },[])
+  }, [])
+  const [data, setData] = useState(null);
+  const ApiUrl = import.meta.env.VITE_API_URL;
+  useEffect(() => {
+    const Fetch = async () => {
+      const response = await fetch(`${ApiUrl}/metrics`);
+      const data = await response.json();
+      setData(data);
+    };
+
+    Fetch();
+
+    const interval = setInterval(Fetch, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
   const [ui, setUi] = useState({
 
     hideNavbar: false,
@@ -27,13 +43,13 @@ export default function App() {
   });
   return (
     <>
-      <Navbar hidden={ui.hideNavbar}/>
-      <SideBar  hidden={ui.hideSideBar}/>
+      <Navbar hidden={ui.hideNavbar} />
+      <SideBar hidden={ui.hideSideBar} />
       <main>
-        <CardsMain   ui={ui} setUi={setUi} />
+        <CardsMain ui={ui} setUi={setUi} Data={data} />
         <Tables />
-        <Config  ui={ui} setUi={setUi} isOpen={ui.isOpen}/>
-    
+        <Config ui={ui} setUi={setUi} isOpen={ui.isOpen}/>
+        <Infrastructure  Data={data} />
       </main>
     </>
   )
