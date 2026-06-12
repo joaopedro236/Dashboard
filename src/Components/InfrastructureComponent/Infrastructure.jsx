@@ -30,47 +30,12 @@ export default function Infrastructure({ Data }) {
         cpuHigh || ramHigh || diskHigh
     );
     useEffect(() => {
-
-        if (cpuHigh && !valueHigh.cpuHigh) {
-            setValueHigh(prev => ({
-                ...prev,
-                cpuHigh: true,
-                cpuWarning: prev.cpuWarning + 1
-
-            }))
-        }
-        if (!cpuHigh && valueHigh.cpuHigh) {
-            setValueHigh(prev => ({
-                ...prev,
-                cpuHigh: false
-            }));
-        }
-        if (ramHigh && !valueHigh.ramHigh) {
-            setValueHigh(prev => ({
-                ...prev,
-                ramHigh: true,
-                ramWarning: prev.ramWarning + 1
-            }))
-        }
-        if (!ramHigh && valueHigh.ramHigh) {
-            setValueHigh(prev => ({
-                ...prev,
-                ramHigh: false
-            }));
-        }
-        if (diskHigh && !valueHigh.diskHigh) {
-            setValueHigh(prev => ({
-                ...prev,
-                diskHigh: true,
-                diskWarning: prev.diskWarning + 1
-            }))
-        }
-        if (!diskHigh && valueHigh.diskHigh) {
-            setValueHigh(prev => ({
-                ...prev,
-                diskHigh: false
-            }));
-        }
+        setValueHigh(prev => ({
+            ...prev,
+            cpuWarning: cpuHigh ? prev.cpuWarning + 1 : prev.cpuWarning,
+            ramWarning: ramHigh ? prev.ramWarning + 1 : prev.ramWarning,
+            diskWarning: diskHigh ? prev.diskWarning + 1 : prev.diskWarning,
+        }));
     }, [Data, cpuHigh, ramHigh, diskHigh])
     if (!Data) {
         return <div>Loading...</div>
