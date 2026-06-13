@@ -41,7 +41,7 @@ export default function App() {
 
     Fetch();
 
-    const interval = setInterval(Fetch, 5000);
+    const interval = setInterval(Fetch, 4000);
 
     return () => clearInterval(interval);
   }, []);
@@ -70,7 +70,7 @@ export default function App() {
         <p>loading</p>
       </section>
       <Navbar hidden={ui.hideNavbar} />
-      <SideBar hidden={ui.hideSideBar} />
+      <SideBar hidden={ui.hideNavbar} />
       <main>
         <CardsMain ui={ui} setUi={setUi} Data={data} />
         <Tables />
@@ -80,4 +80,3 @@ export default function App() {
     </>
   )
 }
-
