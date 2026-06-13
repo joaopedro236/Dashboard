@@ -57,7 +57,7 @@ export default function App() {
   return (
     <>
       <section className={`loadSection ${loading ? 'Active' : ''}`}>
-        <h1>loading</h1>
+        <p>loading</p>
       </section>
       <Navbar hidden={ui.hideNavbar} />
       <SideBar hidden={ui.hideSideBar} />
