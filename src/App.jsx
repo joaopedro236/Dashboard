@@ -24,11 +24,15 @@ export default function App() {
   const ApiUrl = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const Fetch = async () => {
+      try{
       const response = await fetch(`${ApiUrl}/metrics`);
       const data = await response.json();
-     
+      
       
       setData(data);
+      }catch(error) {
+        console.error(error)
+      }
 
     };
 
