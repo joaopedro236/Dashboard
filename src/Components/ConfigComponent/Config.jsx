@@ -25,7 +25,7 @@ export default function Config({ ui, setUi, isOpen}) {
         }))
     }
     const body = document.body
-    const mediaQuery = window.matchMedia('(max-width: 1023px)')
+    const mediaQuery = window.matchMedia('(max-width: 1024px)')
     const mediaQuery4k = window.matchMedia('(min-width:1900px)')
     const [removeBtnConfig, setRemoveBtnConfig] = useState(false)
     if (ui.hideSideBar) {
