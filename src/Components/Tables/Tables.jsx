@@ -23,8 +23,11 @@ export default function Tables() {
         const Fetch = async () => {
             try {
                 const Response = await fetch(`${ApiUrl}/metrics`)
+                if (!Response.ok) {
+                    throw new Error(`HTTP ${Response.status}: ${Response.statusText}`);
+                }
                 const Data = await Response.json()
-                
+
                 setValue(Data)
 
             }
