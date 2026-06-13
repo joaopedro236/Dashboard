@@ -38,6 +38,11 @@
     gap: 20px;
     width: 100%;
 }
+.seeMore {
+    color: var(--seeMore-color);
+    font-size: 13px;
+    margin-left: auto;
+}
 
 .card {
     background-color: var(--background-card);
@@ -54,8 +59,12 @@
     width: 100%;
     flex-direction: column;
 }
-
-
+.disk {
+    display: none;
+}
+.disk.Active {
+    display: flex;
+}
 @keyframes iconConfigAnimation {
     0% {
         transform: rotate(0deg);

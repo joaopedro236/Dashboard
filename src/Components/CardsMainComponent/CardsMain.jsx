@@ -4,7 +4,7 @@ function Card(props) {
 
     return (
         <>
-            <div className="card">
+            <div className={`card ${props.classSecondary} ${props.Active ? 'Active' : ''}`}>
                 <p className='titleCard'>{props.titleCard}</p>
                 <h1 className='valueCard'>{props.Value}</h1>
                 <hr />
@@ -24,6 +24,8 @@ export default function CardsMain({ ui, setUi, isOpen, Data }) {
     };
     
     const [iconsActive, setIconsActive] = useState({ iconConfig: false, iconBell: false })
+    const [seeMoreCard, setSeeMoreCard] = useState(false)
+    const [seeMoreText,setSeeMoreText] = useState('See More')
     if (!Data) {
         return <div>Loading...</div>
     }
@@ -42,11 +44,17 @@ export default function CardsMain({ ui, setUi, isOpen, Data }) {
                         }} />
                     </div>
                 </header>
+                <p className={`seeMore`} onClick={() => {
+                    setSeeMoreCard(prev => !prev)
+                    seeMoreText(seeMoreCard ? 'See Less' : 'See More' )
+                }}>{seeMoreText}</p>
                 <div className="cards">
                     <Card titleCard='CPU Value' Value={Data.cpu.current} statusCard={Data.cpu.change} />
                     <Card titleCard='CPU Average' Value={Data.cpu.average} statusCard={Data.cpu.change} />
                     <Card titleCard='RAM Value' Value={Data.ram.current} statusCard={Data.ram.change} />
                     <Card titleCard='RAM Average ' Value={Data.ram.average} statusCard={Data.ram.change} />
+                    <Card titleCard='Disk Value' Value={Data.disk.current} statusCard={Data.disk.change} Active={seeMoreCard} classSecondary='disk'/>
+                    <Card titleCard='Disk Average ' Value={Data.disk.average} statusCard={Data.disk.change} Active={seeMoreCard} classSecondary='disk'/>
                 </div>
             </section>
         </>
