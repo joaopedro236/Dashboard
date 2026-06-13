@@ -15,7 +15,7 @@ export default function SideBar({ hidden }) {
                {
                     MenuItems.map((AsideItemsMap, index) => (
                         <li key={index} className={`${LiActive === index ? 'Active' : ''}`}  onClick={()=> setLiActive(index)}>
-                            <img src={AsideItemsMap.icon} alt="Icons" className={`${LiActive === index ? 'Active' : ''}`}/>
+                            <img src={AsideItemsMap.icon} alt="Icons" className={`${LiActive === index ? 'Active' : ''}`} loading="lazy" decoding="async" />
                             <p  className={`${LiActive === index ? 'Active' : ''}`}>{AsideItemsMap.title}</p>
                         </li>
                     ))

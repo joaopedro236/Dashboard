@@ -27,7 +27,7 @@ export default function Config({ ui, setUi, isOpen}) {
     return (
         <>
             <button className={`btnConfig ${isOpen ? 'Active' : ''} ${removeBtnConfig ? 'Hidden' : ''}`} onClick={() => setUi(prev => ({...prev, isOpen:true}))}>
-                <img src={`https://img.icons8.com/?size=100&id=364&format=png&color=000000 `} alt="Icon Config" className='iconConfig' />
+                <img src={`https://img.icons8.com/?size=100&id=364&format=png&color=000000 `} alt="Icon Config" className='iconConfig' loading="lazy" decoding="async" />
             </button>
             <section className={`configSection ${isOpen ? 'Active' : ''} `}>
                 <header>

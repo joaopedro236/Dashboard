@@ -35,7 +35,7 @@ export default function Tables() {
         Fetch()
         const interval = setInterval(() => {
             Fetch()
-        }, 4000);
+        }, 5000);
         return () => clearInterval(interval)
     }, [])
 

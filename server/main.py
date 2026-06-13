@@ -19,7 +19,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-)
+)   
 HISTORY_SIZE = 5
 
 cpu_history = deque(maxlen=HISTORY_SIZE)
