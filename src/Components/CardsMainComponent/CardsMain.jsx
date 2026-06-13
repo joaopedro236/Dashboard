@@ -43,9 +43,6 @@ export default function CardsMain({ ui, setUi, isOpen, Data }) {
                         }} />
                     </div>
                 </header>
-                <p className={`seeMore`} onClick={() => {
-                    setSeeMoreCard(prev => !prev)
-                }}>{seeMoreCard ? 'See Less' : 'See More'}</p>
                 <div className="cards">
                     <Card titleCard='CPU Value' Value={Data.cpu.current} statusCard={Data.cpu.change} />
                     <Card titleCard='CPU Average' Value={Data.cpu.average} statusCard={Data.cpu.change} />
