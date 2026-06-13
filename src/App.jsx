@@ -35,6 +35,20 @@ export default function App() {
 
     return () => clearInterval(interval);
   }, []);
+  const [loading, setLoading] = useState(true)
+  useEffect(() => {
+    const handleLoad = () => {
+      setLoading(false)
+    }
+    if (document.readyState === 'complete') {
+      setLoading(false)
+    } else {
+      window.addEventListener('load', handleLoad)
+    }
+    return () => {
+      window.removeEventListener("load", handleLoad);
+    };
+  }, [])
   const [ui, setUi] = useState({
 
     hideNavbar: false,
@@ -42,13 +56,16 @@ export default function App() {
   });
   return (
     <>
+      <section className={`loadSection ${loading ? 'Active' : ''}`}>
+        <h1>loading</h1>
+      </section>
       <Navbar hidden={ui.hideNavbar} />
       <SideBar hidden={ui.hideSideBar} />
       <main>
         <CardsMain ui={ui} setUi={setUi} Data={data} />
         <Tables />
-        <Config ui={ui} setUi={setUi} isOpen={ui.isOpen}/>
-        <Infrastructure  Data={data} />
+        <Config ui={ui} setUi={setUi} isOpen={ui.isOpen} />
+        <Infrastructure Data={data} />
       </main>
     </>
   )
