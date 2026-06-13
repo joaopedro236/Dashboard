@@ -38,7 +38,7 @@ export default function App() {
 
     Fetch();
 
-    const interval = setInterval(Fetch, 4000);
+    const interval = setInterval(Fetch, 5000);
 
     return () => clearInterval(interval);
   }, []);
