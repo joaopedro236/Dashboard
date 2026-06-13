@@ -39,3 +39,14 @@ hr {
     font-size: 20px;
 }
 
+
+@media (min-width:1024px) {
+    body {
+        padding-left: 260px;
+    }
+}
+@media (min-width:1900px) {
+    body {
+        padding-left: 380px;
+    }
+}

@@ -7,7 +7,7 @@ export default function SideBar({ hidden }) {
     const [btnActive, setBtnActive] = useState(false)
     return (
         <>
-        <aside className={`sideBar ${hidden ? "Hidden" : SideBarActive ? "Active" : ""}`}>
+        <aside className={`sideBar`}>
             <header>
                 <h1 className='logo'>DashHard</h1>  
             </header>

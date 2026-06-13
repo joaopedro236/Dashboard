@@ -38,7 +38,6 @@ export default function App() {
   const [ui, setUi] = useState({
 
     hideNavbar: false,
-    hideSideBar: false,
     isOpen: false
   });
   return (

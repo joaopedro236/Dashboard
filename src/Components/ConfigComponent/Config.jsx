@@ -18,24 +18,10 @@ export default function Config({ ui, setUi, isOpen}) {
             hideNavbar: !prev.hideNavbar
         }));
     };
-    const toggleSidebar = () => {
-        setUi(prev => ({
-            ...prev,
-            hideSideBar: !prev.hideSideBar
-        }))
-    }
-    const body = document.body
-    const mediaQuery = window.matchMedia('(max-width: 1024px)')
-    const mediaQuery4k = window.matchMedia('(min-width:1900px)')
+
+  
     const [removeBtnConfig, setRemoveBtnConfig] = useState(false)
-    if (ui.hideSideBar) {
-        body.style.paddingLeft = '0px'
-    }else if (mediaQuery4k.matches) {
-        body.style.paddingLeft = mediaQuery4k.matches ? '380px' : '0px';
-    }
-    else {
-        body.style.paddingLeft = mediaQuery.matches ? '0px' : '260px';
-    }
+
     const [btn, setBtn] = useState({ btnRemoveNavbarOrSideBar: false, btnRemoveScroll: false, btnRemoveBtnConfig: false })
     
     return (
@@ -51,9 +37,7 @@ export default function Config({ ui, setUi, isOpen}) {
                 <Btn class='removeNavbar' title='Remove Navbar' isActive={ui.hideNavbar} onClick={toggleNavbar}>
 
                 </Btn>
-                <Btn class='removeSideBar' title='Remove Sidebar' isActive={ui.hideSideBar} onClick={() => {
-                    toggleSidebar()
-                }}></Btn>
+             
                 <Btn title='Remove Scroll' isActive={btn.btnRemoveScroll} onClick={() => {
 
                     setBtn({ ...btn, btnRemoveScroll: btn.btnRemoveScroll ? false : true })
