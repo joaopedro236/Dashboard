@@ -3,7 +3,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 .CardsMainSection header {
@@ -36,7 +36,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    margin-top: 15px;
+    margin-top: 10px;
     width: 100%;
 }
 .seeMore {
@@ -44,21 +44,11 @@
     color: var(--seeMore-color);
     font-size: 13px;
     margin-left: auto;
-    position: relative;
-    transition: width 0.2s ease-in-out;
+    opacity: 0.6;
+    transition: opacity 0.2s ease-in-out;
 }
-.seeMore::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    background-color: var(--seeMore-color);
-    left: 0;
-    width: 0%;
-    height: 2px;
-    width: 100%;
-}
-.seeMore:hover::before{
-    width: 100%;
+.seeMore:hover {
+    opacity: 1;
 }
 .card {
     background-color: var(--background-card);
