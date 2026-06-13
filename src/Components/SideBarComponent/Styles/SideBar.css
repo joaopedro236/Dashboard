@@ -1,6 +1,6 @@
 .sideBar {
     display: none;
-    height: calc(100vh - 24px);
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
@@ -10,7 +10,7 @@
     padding: 20px;
     width: 220px;
     transition: opacity 0.3s ease-in-out, transform 0.4s ease-in-out;
-
+    
     background-color: var(--background-sidebar);
     backdrop-filter: blur(20px);
 }
