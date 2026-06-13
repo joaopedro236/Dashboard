@@ -39,17 +39,7 @@
     margin-top: 8px;
     width: 100%;
 }
-.seeMore {
-    cursor: pointer;
-    color: var(--seeMore-color);
-    font-size: 13px;
-    margin-left: auto;
-    opacity: 0.8;
-    transition: opacity 0.2s ease-in-out;
-}
-.seeMore:hover {
-    opacity: 1;
-}
+
 .card {
     background-color: var(--background-card);
     padding: 20px;
@@ -65,12 +55,7 @@
     width: 100%;
     flex-direction: column;
 }
-.disk {
-    display: none;
-}
-.disk.Active {
-    display: flex;
-}
+
 @keyframes iconConfigAnimation {
     0% {
         transform: rotate(0deg);
@@ -112,18 +97,6 @@
     }
 }
 
-@media (min-width:1024px) {
-    .cards {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-    .card {
-        max-width: 270px;
-    }
-}
-
 @media (min-width:1900px) {
     .CardsMainSection header h1 {
         font-size: 25px;
@@ -149,7 +122,9 @@
         gap: 30px;
     }
     .cards {
-        margin-top: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
     .disk {
         display: flex;
