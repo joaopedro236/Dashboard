@@ -39,9 +39,3 @@ hr {
     font-size: 20px;
 }
 
-
-@media (min-width:1024px) {
-    body {
-        padding-left: 260px;
-    }
-}
