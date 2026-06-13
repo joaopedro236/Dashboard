@@ -1,5 +1,5 @@
 import './Styles/Config.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 function Btn(props) {
     return (
         <>
@@ -11,7 +11,7 @@ function Btn(props) {
         </>
     )
 }
-export default function Config({ ui, setUi, isOpen}) {
+export default function Config({ ui, setUi, isOpen }) {
     const toggleNavbar = () => {
         setUi(prev => ({
             ...prev,
@@ -19,25 +19,27 @@ export default function Config({ ui, setUi, isOpen}) {
         }));
     };
 
-  
+
     const [removeBtnConfig, setRemoveBtnConfig] = useState(false)
 
+    const body = document.body
+
     const [btn, setBtn] = useState({ btnRemoveNavbarOrSideBar: false, btnRemoveScroll: false, btnRemoveBtnConfig: false })
-    
+
     return (
         <>
-            <button className={`btnConfig ${isOpen ? 'Active' : ''} ${removeBtnConfig ? 'Hidden' : ''}`} onClick={() => setUi(prev => ({...prev, isOpen:true}))}>
+            <button className={`btnConfig ${isOpen ? 'Active' : ''} ${removeBtnConfig ? 'Hidden' : ''}`} onClick={() => setUi(prev => ({ ...prev, isOpen: true }))}>
                 <img src={`https://img.icons8.com/?size=100&id=364&format=png&color=000000 `} alt="Icon Config" className='iconConfig' loading="lazy" decoding="async" />
             </button>
             <section className={`configSection ${isOpen ? 'Active' : ''} `}>
                 <header>
                     <h1 className='title'>Settings</h1>
-                    <button className='closeConfig' onClick={() => setUi(prev => ({...prev, isOpen:false}))}>X</button>
+                    <button className='closeConfig' onClick={() => setUi(prev => ({ ...prev, isOpen: false }))}>X</button>
                 </header>
                 <Btn class='removeNavbar' title='Remove Navbar' isActive={ui.hideNavbar} onClick={toggleNavbar}>
 
                 </Btn>
-             
+
                 <Btn title='Remove Scroll' isActive={btn.btnRemoveScroll} onClick={() => {
 
                     setBtn({ ...btn, btnRemoveScroll: btn.btnRemoveScroll ? false : true })

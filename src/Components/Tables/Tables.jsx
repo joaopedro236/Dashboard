@@ -29,7 +29,7 @@ export default function Tables() {
 
             }
             catch (error) {
-                console.error(error.message)
+                console.error(error)
             }
         }
         Fetch()
