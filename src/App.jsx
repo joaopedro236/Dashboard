@@ -20,7 +20,6 @@ export default function App() {
       window.removeEventListener('resize', handleResize)
     }
   }, [])
-  const [loading, setLoading]
   const [data, setData] = useState(null);
   const ApiUrl = import.meta.env.VITE_API_URL;
   useEffect(() => {
