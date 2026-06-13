@@ -57,4 +57,5 @@ export default function CardsMain({ ui, setUi, isOpen, Data }) {
             </section>
         </>
     )
+    
 }
