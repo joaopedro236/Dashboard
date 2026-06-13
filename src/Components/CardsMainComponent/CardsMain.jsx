@@ -25,7 +25,6 @@ export default function CardsMain({ ui, setUi, isOpen, Data }) {
     
     const [iconsActive, setIconsActive] = useState({ iconConfig: false, iconBell: false })
     const [seeMoreCard, setSeeMoreCard] = useState(false)
-    const [seeMoreText,setSeeMoreText] = useState('See More')
     if (!Data) {
         return <div>Loading...</div>
     }
@@ -46,8 +45,7 @@ export default function CardsMain({ ui, setUi, isOpen, Data }) {
                 </header>
                 <p className={`seeMore`} onClick={() => {
                     setSeeMoreCard(prev => !prev)
-                    seeMoreText(seeMoreCard ? 'See Less' : 'See More' )
-                }}>{seeMoreText}</p>
+                }}>{seeMoreCard ? 'See Less' : 'See More'}</p>
                 <div className="cards">
                     <Card titleCard='CPU Value' Value={Data.cpu.current} statusCard={Data.cpu.change} />
                     <Card titleCard='CPU Average' Value={Data.cpu.average} statusCard={Data.cpu.change} />

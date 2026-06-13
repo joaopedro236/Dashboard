@@ -3,7 +3,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 10px;
 }
 
 .CardsMainSection header {
@@ -36,14 +36,30 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+    margin-top: 15px;
     width: 100%;
 }
 .seeMore {
+    cursor: pointer;
     color: var(--seeMore-color);
     font-size: 13px;
     margin-left: auto;
+    position: relative;
+    transition: width 0.2s ease-in-out;
 }
-
+.seeMore::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    background-color: var(--seeMore-color);
+    left: 0;
+    width: 0%;
+    height: 2px;
+    width: 100%;
+}
+.seeMore:hover::before{
+    width: 100%;
+}
 .card {
     background-color: var(--background-card);
     padding: 20px;
